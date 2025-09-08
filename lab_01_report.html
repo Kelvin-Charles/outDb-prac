@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 01 - Database Concepts & Design - Task 01</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .page {
+            background-color: white;
+            margin: 0 auto;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            min-height: 1000px;
+        }
+        
+        .cover-page {
+            text-align: center;
+            padding: 0;
+            position: relative;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .blue-header-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(90deg, #1e40af 0%, #3b82f6 50%, #1e40af 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .cover-content {
+            padding: 60px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .university-logo {
+            width: 140px;
+            height: auto;
+            margin: 0 auto 30px auto;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        
+        .university-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .university-name {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            color: #1e40af;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .university-name::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            border-radius: 2px;
+        }
+        
+        .course-details {
+            text-align: left;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .detail-row {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.3s ease;
+        }
+        
+        .detail-row:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 8px -12px;
+        }
+        
+        .detail-row .label {
+            font-weight: 700;
+            min-width: 200px;
+            color: #1e40af;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-row .value {
+            color: #374151;
+            flex: 1;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(30, 64, 175, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .circle-1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 40px;
+            height: 40px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .date {
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        
+        .content-page {
+            page-break-before: always;
+        }
+        
+        .question-section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .question-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .scenario {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .scenario h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .requirements {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            margin-bottom: 20px;
+        }
+        
+        .requirements h4 {
+            margin-top: 0;
+            color: #27ae60;
+        }
+        
+        .code-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-section h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        pre {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .screenshot {
+            text-align: center;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .screenshot-caption {
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .features {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        
+        .features h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+        
+        .features ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .conclusion {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 4px solid #17a2b8;
+            margin-top: 30px;
+        }
+        
+        .conclusion h3 {
+            margin-top: 0;
+            color: #0c5460;
+        }
+        
+        .step-separator {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #1e40af 0%, #3b82f6 50%, #1e40af 100%);
+            margin: 40px 0;
+            border-radius: 1px;
+        }
+        
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .summary-table th, .summary-table td {
+            border: 1px solid #bdc3c7;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .summary-table th {
+            background-color: #34495e;
+            color: white;
+        }
+        
+        .summary-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            body {
+                background-color: white !important;
+                margin: 0;
+                padding: 0;
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            .page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 20mm !important;
+                max-width: none !important;
+                min-height: auto !important;
+                page-break-after: always;
+            }
+            
+            .cover-page {
+                background: white !important;
+                min-height: auto !important;
+                display: block !important;
+                justify-content: normal !important;
+                page-break-after: always;
+            }
+            
+            .cover-content {
+                padding: 0 !important;
+                max-width: none !important;
+                margin: 0 !important;
+            }
+            
+            .blue-header-bar {
+                background: #1e40af !important;
+                height: 8px !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .university-logo {
+                width: 100px !important;
+                margin: 20px auto 20px auto !important;
+                filter: none !important;
+                transition: none !important;
+            }
+            
+            .university-logo:hover {
+                transform: none !important;
+            }
+            
+            .university-name {
+                font-size: 18pt !important;
+                margin-bottom: 30px !important;
+                text-shadow: none !important;
+                color: #1e40af !important;
+            }
+            
+            .university-name::after {
+                background: #1e40af !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .course-details {
+                background: white !important;
+                border: 2px solid #1e40af !important;
+                border-radius: 8px !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                margin: 30px auto !important;
+                padding: 20px !important;
+                max-width: 500px !important;
+            }
+            
+            .detail-row {
+                margin-bottom: 12px !important;
+                padding: 4px 0 !important;
+                border-bottom: 1px solid #e5e7eb !important;
+                transition: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .detail-row:hover {
+                background-color: transparent !important;
+                border-radius: 0 !important;
+                padding: 4px 0 !important;
+                margin: 0 !important;
+            }
+            
+            .detail-row .label {
+                color: #1e40af !important;
+                font-size: 11pt !important;
+                min-width: 180px !important;
+            }
+            
+            .detail-row .value {
+                color: #000 !important;
+                font-size: 12pt !important;
+            }
+            
+            .date {
+                margin-top: 30px !important;
+                font-size: 11pt !important;
+                color: #000 !important;
+            }
+            
+            .decorative-elements {
+                display: none !important;
+            }
+            
+            .content-page {
+                page-break-before: always;
+            }
+            
+            .question-section {
+                page-break-inside: avoid;
+                margin-bottom: 30px !important;
+            }
+            
+            .question-title {
+                font-size: 16pt !important;
+                color: #1e40af !important;
+                page-break-after: avoid;
+            }
+            
+            .scenario, .requirements, .features, .conclusion {
+                page-break-inside: avoid;
+                margin: 15px 0 !important;
+                padding: 12px !important;
+            }
+            
+            .code-section {
+                page-break-inside: avoid;
+                margin: 15px 0 !important;
+                padding: 15px !important;
+                background: #f8f9fa !important;
+                border: 1px solid #dee2e6 !important;
+            }
+            
+            .code-section h4 {
+                font-size: 12pt !important;
+                margin-bottom: 10px !important;
+            }
+            
+            pre {
+                font-size: 9pt !important;
+                line-height: 1.2 !important;
+                background: #2d3748 !important;
+                color: #e2e8f0 !important;
+                padding: 10px !important;
+                overflow: visible !important;
+                white-space: pre-wrap !important;
+                word-wrap: break-word !important;
+            }
+            
+            .screenshot {
+                page-break-inside: avoid;
+                margin: 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            .screenshot img {
+                max-width: 100% !important;
+                height: auto !important;
+                border: 1px solid #000 !important;
+                box-shadow: none !important;
+            }
+            
+            .screenshot-caption {
+                font-size: 10pt !important;
+                color: #000 !important;
+                margin-top: 5px !important;
+            }
+            
+            h2, h3, h4 {
+                color: #1e40af !important;
+                page-break-after: avoid;
+            }
+            
+            ul, ol {
+                page-break-inside: avoid;
+            }
+            
+            li {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="page cover-page">
+        <div class="blue-header-bar"></div>
+        
+        <div class="decorative-elements">
+            <div class="decorative-circle circle-1"></div>
+            <div class="decorative-circle circle-2"></div>
+            <div class="decorative-circle circle-3"></div>
+        </div>
+        
+        <div class="cover-content">
+            <img src="logo/out.avif" alt="OUT Logo" class="university-logo">
+            
+            <div class="university-name">OPEN UNIVERSITY OF TANZANIA</div>
+            
+            <div class="course-details">
+                <div class="detail-row">
+                    <span class="label">COURSE NAME:</span>
+                    <span class="value">Bachelor of Science in Information and Communication Technology</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">WORK:</span>
+                    <span class="value">Lab 01 - Task 01</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">SUBJECT NAME:</span>
+                    <span class="value">Database Concepts & Design</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">COURSE CODE:</span>
+                    <span class="value">OIT 138</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">STUDENT NAME:</span>
+                    <span class="value">Kelvin Charles Meena</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">REGISTRATION NUMBER:</span>
+                    <span class="value">UG2024-5-150</span>
+                </div>
+            </div>
+            
+            <div class="date">
+                <strong>Date of Submission:</strong> <span id="current-date"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Page -->
+    <div class="page content-page">
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">LAB 01 - TASK 01 REPORT</h2>
+
+        <div class="question-section">
+            <div class="question-title">Task 01: Database Setup and Candidate Table</div>
+            
+            <div class="scenario">
+                <h4>Objective:</h4>
+                <p>To demonstrate database creation, table management, and data manipulation using MySQL/MariaDB.</p>
+            </div>
+            
+            <div class="requirements">
+                <h4>Instructions:</h4>
+                <p>This task involves creating a Candidate table, inserting personal and sample data, and performing various database operations. All operations were performed using MariaDB 10.4.32 in a Docker container environment.</p>
+            </div>
+        </div>
+
+        <div class="question-section">
+            <div class="question-title">Step a) Display MySQL Version and Current Date</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>SELECT VERSION() AS MySQL_Version, NOW() AS Current_Date;</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 a.png" alt="Task 1a - MySQL Version and Date">
+                <div class="screenshot-caption">Figure 1a: Display of MariaDB version and current date</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>The query successfully displays the MariaDB server version (10.4.32-MariaDB) and the current date and time. This confirms the database server is running properly.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step b) Create Candidate Table</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>USE university;
+CREATE TABLE Candidate (
+    RegNo VARCHAR(10) PRIMARY KEY,
+    Surname VARCHAR(50) NOT NULL,
+    Secondname VARCHAR(50) NOT NULL,
+    Firstname VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Phone VARCHAR(20) NOT NULL,
+    Center VARCHAR(50) NOT NULL
+);</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 b.png" alt="Task 1b - Create Candidate Table">
+                <div class="screenshot-caption">Figure 1b: Creation of Candidate table with proper structure</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>The Candidate table was successfully created with the required fields: RegNo (Primary Key), Surname, Secondname, Firstname, Email, Phone, and Center. All fields are set as NOT NULL to ensure data integrity.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step c) Insert Personal Information</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>INSERT INTO Candidate (RegNo, Surname, Secondname, Firstname, Email, Phone, Center) 
+VALUES ('UG2024-5-150', 'Meena', 'Charles', 'Kelvin', 'UG2024-5-150@student.out.ac.tz', '+255623391284', 'Ilala');</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 c.png" alt="Task 1c - Insert Personal Data">
+                <div class="screenshot-caption">Figure 1c: Insertion of personal information into Candidate table</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>Personal information was successfully inserted into the Candidate table. The data includes registration number, full name, email address, phone number, and study center as required.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step d) Display Personal Information</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>SELECT * FROM Candidate WHERE RegNo = 'UG2024-5-150';</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 d.png" alt="Task 1d - Display Personal Data">
+                <div class="screenshot-caption">Figure 1d: Display of inserted personal information</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>The query successfully retrieves and displays the personal information that was inserted in step c, confirming the data was stored correctly.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step e) Insert Table 01 Data</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>INSERT INTO Candidate (RegNo, Surname, Secondname, Firstname, Email, Phone, Center) VALUES
+('1011', 'Mhehe', 'Samwel', 'Amina', 'ms@un.ac.tz', '061846466', 'Dodoma'),
+('2019', 'Mohamed', 'Yusuph', 'Juma', 'moj@un.ac.tz', '061019191', 'Songea'),
+('1001', 'Mgosi', 'Said', 'Mseme', 'sgo@un.ac.tz', '061006927', 'Tanga');</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 e.png" alt="Task 1e - Insert Table 01 Data">
+                <div class="screenshot-caption">Figure 1e: Insertion of Table 01 candidate data</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>Three additional candidate records were successfully inserted as specified in Table 01 of the assignment. The data includes candidates from different centers: Dodoma, Songea, and Tanga.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step f) Display All Candidate Information</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>SELECT * FROM Candidate;</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 f.png" alt="Task 1f - Display All Data">
+                <div class="screenshot-caption">Figure 1f: Display of all candidate information in the table</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>The query displays all four candidate records in the table: one personal record and three records from Table 01. All data is properly formatted and displayed.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step g) Display All Tables in University Database</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>SHOW TABLES;</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 g.png" alt="Task 1g - Show All Tables">
+                <div class="screenshot-caption">Figure 1g: Display of all tables in the university database</div>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>The command successfully displays all tables in the university database, including the newly created Candidate table and other existing tables from Practical 2.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Step h) Count Records in Instructor, Teaches, and Section Tables</div>
+            
+            <div class="code-section">
+                <h4>SQL Query:</h4>
+                <pre><code>SELECT 
+    'instructor' AS Table_Name, 
+    COUNT(*) AS Total_Records 
+FROM instructor
+UNION ALL
+SELECT 
+    'teaches' AS Table_Name, 
+    COUNT(*) AS Total_Records 
+FROM teaches
+UNION ALL
+SELECT 
+    'section' AS Table_Name, 
+    COUNT(*) AS Total_Records 
+FROM section;</code></pre>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 h.png" alt="Task 1h - Count Records">
+                <div class="screenshot-caption">Figure 1h: Count of records in instructor, teaches, and section tables</div>
+            </div>
+            
+            <div class="features">
+                <h4>Results:</h4>
+                <ul>
+                    <li><strong>instructor:</strong> 12 records</li>
+                    <li><strong>teaches:</strong> 15 records</li>
+                    <li><strong>section:</strong> 15 records</li>
+                </ul>
+            </div>
+            
+            <div class="features">
+                <h4>Result:</h4>
+                <p>The query successfully counts and displays the total number of records in each of the three specified tables. This demonstrates the use of COUNT() function and UNION ALL to combine results from multiple tables.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="task-section">
+            <div class="task-title">Task Summary</div>
+            
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>a</td>
+                        <td>Display MySQL version and current date</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>b</td>
+                        <td>Create Candidate table</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>c</td>
+                        <td>Insert personal information</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>d</td>
+                        <td>Display personal information</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>e</td>
+                        <td>Insert Table 01 data</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>f</td>
+                        <td>Display all candidate information</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>g</td>
+                        <td>Display all tables in database</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr>
+                        <td>h</td>
+                        <td>Count records in specified tables</td>
+                        <td>✅ Completed</td>
+                    </tr>
+                    <tr style="background-color: #e8f5e8; font-weight: bold;">
+                        <td colspan="2">COMPLETION STATUS</td>
+                        <td>✅ All Completed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="question-section">
+            <div class="question-title">Key Learning Outcomes</div>
+            
+            <div class="features">
+                <h4>Skills Demonstrated:</h4>
+                <ul>
+                    <li>Database connection and server information retrieval</li>
+                    <li>Table creation with proper data types and constraints</li>
+                    <li>Data insertion using INSERT statements</li>
+                    <li>Data retrieval using SELECT statements</li>
+                    <li>Database structure exploration using SHOW TABLES</li>
+                    <li>Record counting using COUNT() function</li>
+                    <li>Result combination using UNION ALL</li>
+                    <li>Working with MariaDB/MySQL command line interface</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Technical Environment</div>
+            
+            <div class="features">
+                <h4>Environment Details:</h4>
+                <ul>
+                    <li><strong>Database Server:</strong> MariaDB 10.4.32</li>
+                    <li><strong>Platform:</strong> Docker Container</li>
+                    <li><strong>Interface:</strong> Command Line (mysql client)</li>
+                    <li><strong>Database:</strong> university</li>
+                    <li><strong>Date:</strong> September 2025</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="question-section">
+            <div class="question-title">Complete Task Screenshot</div>
+            
+            <div class="screenshot">
+                <img src="screenshots/task1 full.png" alt="Task 1 Complete - Full Screenshot">
+                <div class="screenshot-caption">Figure: Complete Task 01 execution showing all steps (a-h) in sequence</div>
+            </div>
+            
+            <div class="features">
+                <h4>Complete Task Overview:</h4>
+                <p>This comprehensive screenshot demonstrates the successful completion of all Task 01 requirements, showing the complete workflow from database connection through all required operations including table creation, data insertion, and record counting.</p>
+            </div>
+        </div>
+
+        <hr class="step-separator">
+
+        <div class="conclusion">
+            <h3>Conclusion</h3>
+            <p>Task 01 has been successfully completed with all required database operations demonstrated. The implementation shows proficiency in:</p>
+            <ul>
+                <li><strong>Database Management:</strong> Creating tables with proper structure and constraints</li>
+                <li><strong>Data Manipulation:</strong> Inserting and retrieving data using SQL commands</li>
+                <li><strong>Query Execution:</strong> Using various SQL functions and operations</li>
+                <li><strong>Database Exploration:</strong> Understanding database structure and relationships</li>
+            </ul>
+            <p>The practical demonstrates a solid understanding of database concepts and SQL operations essential for database management systems.</p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB');
+    </script>
+</body>
+</html>
