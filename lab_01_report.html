@@ -279,13 +279,17 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-25deg);
-            color: rgba(15, 23, 42, 0.18);
+            color: rgba(220, 38, 38, 0.35);
             font-size: 56px;
             font-weight: 900;
             letter-spacing: 2px;
             white-space: nowrap;
             pointer-events: none;
             user-select: none;
+        }
+        
+        .screenshot.full-watermark::after {
+            color: rgba(15, 23, 42, 0.18);
         }
         
         .screenshot-caption {
@@ -490,7 +494,7 @@
                 page-break-after: avoid;
             }
             
-            .scenario, .requirements, .features, .conclusion, .task-overview {
+            .scenario, .requirements, .features, .conclusion {
                 page-break-inside: avoid;
                 margin: 15px 0 !important;
                 padding: 12px !important;
@@ -925,7 +929,7 @@ FROM section;</code></pre>
         <div class="question-section">
             <div class="question-title">Complete Task Screenshot</div>
             
-            <div class="screenshot">
+            <div class="screenshot full-watermark">
                 <img src="screenshots/task1 full.png" alt="Task 1 Complete - Full Screenshot">
                 <div class="screenshot-caption">Figure: Complete Task 01 execution showing all steps (a-h) in sequence</div>
             </div>
