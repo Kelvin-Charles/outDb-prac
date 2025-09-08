@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Database Practical - Index</title>
     <style>
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 20px; background: #f5f7fb; }
+        body { font-family: 'Times New Roman', serif; margin: 0; padding: 20px; background: #f5f7fb; position: relative; overflow-x: hidden; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
         .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); border-radius: 12px; }
         h1 { margin: 0 0 10px; color: #1e40af; font-size: 26px; }
         p.sub { margin: 0 0 25px; color: #475569; }
@@ -22,9 +22,27 @@
         .detail { display: flex; gap: 8px; align-items: baseline; }
         .label { color: #1e40af; font-weight: 700; min-width: 120px; }
         .value { color: #0f172a; }
+        /* Modal styles */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); display: none; align-items: center; justify-content: center; z-index: 1000; }
+        .modal { background: #0b1220; padding: 10px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 95vw; max-height: 90vh; display: flex; flex-direction: column; gap: 8px; }
+        .modal img { max-width: 92vw; max-height: 78vh; border-radius: 6px; display: block; -webkit-user-drag: none; user-drag: none; }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; color: #e2e8f0; }
+        .modal-title { font-size: 14px; font-weight: 700; }
+        .modal-close { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+        .modal-close:hover { background: #374151; }
+        /* Animated background */
+        .bg-anim { position: fixed; inset: -20vh -20vw; z-index: -1; opacity: 0.35; filter: blur(60px) saturate(110%); pointer-events: none; }
+        .bg-anim:before, .bg-anim:after { content: ""; position: absolute; width: 120vmax; height: 120vmax; border-radius: 50%; }
+        .bg-anim:before { background: radial-gradient(closest-side, #60a5fa, transparent 70%); top: -10%; left: -15%; animation: float1 28s ease-in-out infinite alternate; }
+        .bg-anim:after  { background: radial-gradient(closest-side, #a78bfa, transparent 70%); bottom: -15%; right: -10%; animation: float2 32s ease-in-out infinite alternate; }
+        @keyframes float1 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6%, -4%, 0) scale(1.05); } 100% { transform: translate3d(10%, 6%, 0) scale(1.1); } }
+        @keyframes float2 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-8%, 4%, 0) scale(1.08); } 100% { transform: translate3d(-12%, -6%, 0) scale(1.12); } }
+        /* Prevent image dragging on all images */
+        img { -webkit-user-drag: none; user-drag: none; }
     </style>
- </head>
- <body>
+</head>
+<body>
+    <div class="bg-anim"></div>
     <div class="container">
         <h1>Open University of Tanzania - Database Practical</h1>
         <p class="sub">Quick links to all tasks, reports, and full screenshots.</p>
@@ -44,25 +62,25 @@
                 <div class="card">
                     <div class="title">Lab 01 - Task 01 Report</div>
                     <div class="links">
-                        <a href="lab_01_report.html">Open Report</a>
+                        <a href="lab_01_report.html" draggable="false">Open Report</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="title">Lab 02 - Task 02 Report</div>
                     <div class="links">
-                        <a href="lab_02_report.html">Open Report</a>
+                        <a href="lab_02_report.html" draggable="false">Open Report</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="title">Lab 03 - Task 03 Report</div>
                     <div class="links">
-                        <a href="lab_03_report.html">Open Report</a>
+                        <a href="lab_03_report.html" draggable="false">Open Report</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="title">Complete Practical Report</div>
                     <div class="links">
-                        <a href="complete_practical_report.html">Open Report</a>
+                        <a href="complete_practical_report.html" draggable="false">Open Report</a>
                     </div>
                 </div>
             </div>
@@ -74,19 +92,19 @@
                 <div class="card">
                     <div class="title">Task 01 - Full</div>
                     <div class="links">
-                        <a href="screenshots/task1 full.png" target="_blank">Open Image</a>
+                        <a href="screenshots/task1 full.png" class="preview-link" data-title="Task 01 - Full Screenshot" draggable="false">Open Image</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="title">Task 02 - Full</div>
                     <div class="links">
-                        <a href="screenshots/task2 full.png" target="_blank">Open Image</a>
+                        <a href="screenshots/task2 full.png" class="preview-link" data-title="Task 02 - Full Screenshot" draggable="false">Open Image</a>
                     </div>
                 </div>
                 <div class="card">
                     <div class="title">Task 03 - Full</div>
                     <div class="links">
-                        <a href="screenshots/task3 full.png" target="_blank">Open Image</a>
+                        <a href="screenshots/task3 full.png" class="preview-link" data-title="Task 03 - Full Screenshot" draggable="false">Open Image</a>
                     </div>
                 </div>
             </div>
@@ -96,6 +114,71 @@
             Open University of Tanzania · Database Concepts & Design · OIT 138
         </div>
     </div>
- </body>
- </html>
+
+    <!-- Modal Preview -->
+    <div id="lightbox" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal">
+            <div class="modal-header">
+                <div id="modal-title" class="modal-title">Preview</div>
+                <button id="modal-close" class="modal-close" type="button">Close</button>
+            </div>
+            <img id="modal-image" src="" alt="Screenshot Preview" draggable="false">
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const overlay = document.getElementById('lightbox');
+            const img = document.getElementById('modal-image');
+            const title = document.getElementById('modal-title');
+            const closeBtn = document.getElementById('modal-close');
+
+            function openModal(src, caption) {
+                img.src = src;
+                title.textContent = caption || 'Preview';
+                overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                overlay.style.display = 'none';
+                img.src = '';
+                document.body.style.overflow = '';
+            }
+
+            document.querySelectorAll('.preview-link').forEach(a => {
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const caption = this.getAttribute('data-title');
+                    openModal(href, caption);
+                });
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+        })();
+    </script>
+    <script>
+        // Global security measures: disable context menu, copy/cut/paste, drag, and selection
+        document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, { passive: false, capture: true });
+        ['copy','cut','paste','dragstart','selectstart'].forEach(function(evt){
+            document.addEventListener(evt, function(e){ e.preventDefault(); }, { passive: false, capture: true });
+        });
+        // Block common keyboard shortcuts for copy/cut
+        document.addEventListener('keydown', function(e){
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x')) {
+                e.preventDefault();
+            }
+        }, { capture: true });
+        // Ensure all images and links are not draggable
+        document.querySelectorAll('img, a').forEach(function(el){ el.setAttribute('draggable','false'); });
+    </script>
+</body>
+</html>
 

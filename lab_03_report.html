@@ -11,6 +11,13 @@
             margin: 0;
             padding: 20px;
             background-color: #f9f9f9;
+            position: relative;
+            overflow-x: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
         
         .page {
@@ -56,6 +63,8 @@
             display: block;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
             transition: transform 0.3s ease;
+            -webkit-user-drag: none;
+            user-drag: none;
         }
         
         .university-logo:hover {
@@ -258,6 +267,8 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            -webkit-user-drag: none;
+            user-drag: none;
         }
         
         .screenshot-caption {
@@ -324,6 +335,14 @@
         .summary-table tr:nth-child(even) {
             background-color: #f8f9fa;
         }
+        
+        /* Animated background */
+        .bg-anim { position: fixed; inset: -20vh -20vw; z-index: -1; opacity: 0.28; filter: blur(60px) saturate(110%); pointer-events: none; }
+        .bg-anim:before, .bg-anim:after { content: ""; position: absolute; width: 120vmax; height: 120vmax; border-radius: 50%; }
+        .bg-anim:before { background: radial-gradient(closest-side, #60a5fa, transparent 70%); top: -10%; left: -15%; animation: slowFloat1 28s ease-in-out infinite alternate; }
+        .bg-anim:after  { background: radial-gradient(closest-side, #a78bfa, transparent 70%); bottom: -15%; right: -10%; animation: slowFloat2 32s ease-in-out infinite alternate; }
+        @keyframes slowFloat1 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6%, -4%, 0) scale(1.05); } 100% { transform: translate3d(10%, 6%, 0) scale(1.1); } }
+        @keyframes slowFloat2 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-8%, 4%, 0) scale(1.08); } 100% { transform: translate3d(-12%, -6%, 0) scale(1.12); } }
         
         @media print {
             * {
@@ -454,7 +473,7 @@
                 page-break-after: avoid;
             }
             
-            .scenario, .requirements, .features, .conclusion {
+            .scenario, .requirements, .features, .conclusion, .task-overview {
                 page-break-inside: avoid;
                 margin: 15px 0 !important;
                 padding: 12px !important;
@@ -519,6 +538,7 @@
     </style>
 </head>
 <body>
+    <div class="bg-anim"></div>
     <!-- Cover Page -->
     <div class="page cover-page">
         <div class="blue-header-bar"></div>
@@ -799,6 +819,16 @@ ORDER BY salary;</code></pre>
     <script>
         // Set current date
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB');
+        // Disable context menu and copy/select actions
+        document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, { passive: false });
+        ['copy','cut','paste','dragstart','selectstart'].forEach(function(evt){
+            document.addEventListener(evt, function(e){ e.preventDefault(); }, { passive: false });
+        });
+        document.addEventListener('keydown', function(e){
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x')) {
+                e.preventDefault();
+            }
+        });
     </script>
 </body>
 </html>
