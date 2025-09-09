@@ -312,6 +312,34 @@
             pointer-events: none;
             background: transparent;
         }
+
+        /* Design Gallery */
+        .design-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .design-gallery figure {
+            margin: 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e5e7eb;
+        }
+        .design-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+        .design-gallery figcaption {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -381,6 +409,23 @@
                     <p>Seasonal tips, latest updates, expert resources, and local support information. Links to FAO guides and local Kilosa contacts.</p>
                     <span class="status completed">Completed</span>
                 </a>
+            </div>
+
+            <h3 class="practical-title" style="font-size: 1.4em; border: none; margin-top: 30px;">📝 Design Sketches (Figma)</h3>
+            <p class="practical-description" style="margin-top: -10px;">Initial page designs as required by assignment instructions.</p>
+            <div class="design-gallery">
+                <figure>
+                    <img src="prac1/design/Home page.png" alt="Home Page Design">
+                    <figcaption>Home Page</figcaption>
+                </figure>
+                <figure>
+                    <img src="prac1/design/Techniques.png" alt="Techniques Page Design">
+                    <figcaption>Techniques Page</figcaption>
+                </figure>
+                <figure>
+                    <img src="prac1/design/kalenda.png" alt="Calendar Page Design">
+                    <figcaption>Calendar Page</figcaption>
+                </figure>
             </div>
         </div>
         

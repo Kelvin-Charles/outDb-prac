@@ -30,6 +30,31 @@
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
+        /* Design Gallery */
+        .design-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .design-gallery figure {
+            margin: 0;
+        }
+        .design-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            background: #fff;
+        }
+        .design-gallery figcaption {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
@@ -523,6 +548,27 @@
                                 <span>→</span>
                             </a>
                             <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">📝</div>
+                            <h3 class="card-title">Design Sketches (Figma)</h3>
+                        </div>
+                        <p class="card-description">
+                            Initial page designs for Practical 1 website: Home, Techniques, and Calendar.
+                        </p>
+                        <div class="design-gallery">
+                            <figure>
+                                <img src="Information System/prac1/design/Home page.png" alt="Home Page Design">
+                                <figcaption>Home Page</figcaption>
+                            </figure>
+                        </div>
+                        <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+                            <a href="Information System/index.html" class="card-link" style="opacity: 0.85;">
+                                Open Info Systems Index
+                                <span>→</span>
+                            </a>
                         </div>
                     </div>
                     
