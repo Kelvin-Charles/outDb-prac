@@ -136,6 +136,49 @@
       <span class="muted small">OIT 131 – Practicals 1 & 2, September 2025 | Registration: UG2024-5-150</span>
     </div>
   </footer>
+  <script>
+    (function(){
+      function showBlockMessage(msg){
+        var id = 'action-blocked-banner';
+        var el = document.getElementById(id);
+        if(!el){
+          el = document.createElement('div');
+          el.id = id;
+          el.style.position = 'fixed';
+          el.style.bottom = '16px';
+          el.style.left = '50%';
+          el.style.transform = 'translateX(-50%)';
+          el.style.background = 'rgba(0,0,0,0.8)';
+          el.style.color = '#fff';
+          el.style.padding = '10px 14px';
+          el.style.borderRadius = '8px';
+          el.style.fontSize = '14px';
+          el.style.zIndex = '99999';
+          el.style.boxShadow = '0 6px 18px rgba(0,0,0,0.25)';
+          document.body.appendChild(el);
+        }
+        el.textContent = msg || 'Action disabled on this page.';
+        el.style.display = 'block';
+        clearTimeout(el._t);
+        el._t = setTimeout(function(){ el.style.display = 'none'; }, 1800);
+      }
+
+      document.addEventListener('contextmenu', function(e){
+        e.preventDefault();
+        showBlockMessage('Right-click is disabled.');
+        return false;
+      });
+
+      document.addEventListener('keydown', function(e){
+        var isPrint = (e.key === 'p' || e.key === 'P') && (e.ctrlKey || e.metaKey);
+        if(isPrint){
+          e.preventDefault();
+          showBlockMessage('Printing is disabled on this page.');
+          return false;
+        }
+      }, true);
+    })();
+  </script>
 </body>
 </html>
 
