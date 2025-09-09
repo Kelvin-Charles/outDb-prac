@@ -438,7 +438,7 @@
             -ms-user-select: text;
             user-select: text;
         }
-        
+        /* albastini1 */
         img {
             -webkit-user-drag: none;
             -khtml-user-drag: none;
@@ -680,37 +680,83 @@
             <!-- Data Communications & Networking Section -->
             <section id="data-networking" class="section">
                 <h2 class="section-title">Data Communications & Networking</h2>
-                <p class="section-subtitle">Protocols, packet analysis, troubleshooting, and simulation</p>
+                <p class="section-subtitle">Network protocols, packet analysis, and troubleshooting</p>
                 
                 <div class="cards-grid">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-icon">📡</div>
-                            <h3 class="card-title">OIT 137 – Practical 1 & 2</h3>
+                            <div class="card-icon">🔍</div>
+                            <h3 class="card-title">Packet Analysis Project</h3>
                         </div>
                         <p class="card-description">
-                            Packet capture and analysis using Wireshark/Packet Tracer and network troubleshooting on a given topology.
+                            Comprehensive network packet analysis using Wireshark, examining OSI model layers, 
+                            protocol interactions, and network communication patterns.
                         </p>
                         <ul class="card-features">
-                            <li><strong>Instructions:</strong> No copy/paste (50% cut), no plagiarism, work individually</li>
-                            <li>Use drawing tools, include registration number clearly, submit PDF</li>
-                            <li><strong>Task 1:</strong> Capture packets and analyze</li>
-                            <li>• Identify protocols at each OSI layer</li>
-                            <li>• Explain role of each protocol in communication</li>
-                            <li>• Show how L3 routing decisions are indicated</li>
-                            <li>• Discuss how L4 ensures integrity and order</li>
-                            <li><strong>Task 2:</strong> Troubleshoot provided topology</li>
-                            <li>• Diagnose issues from symptoms (slow, inaccessible resources, intermittent)</li>
-                            <li>• Identify potential causes for each symptom</li>
-                            <li>• Propose solutions and justify</li>
-                            <li>• Implement in a simulator and verify fixes</li>
+                            <li>Wireshark Packet Capture & Analysis</li>
+                            <li>OSI Model Layer Examination</li>
+                            <li>Protocol Role Identification</li>
+                            <li>Layer 3 Routing Decisions Analysis</li>
+                            <li>Layer 4 Data Integrity Verification</li>
+                            <li>TCP Handshake Process Documentation</li>
                         </ul>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                            <a class="card-link" style="pointer-events: none; opacity: 0.6;">
-                                Coming Soon
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="data communication/qn1/packetAnalysis.html" class="card-link">
+                                View Question 1
                                 <span>→</span>
                             </a>
-                            <span class="status-badge status-in-progress">In Progress</span>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🛠️</div>
+                            <h3 class="card-title">Network Troubleshooting</h3>
+                        </div>
+                        <p class="card-description">
+                            Network diagnosis and problem-solving exercise involving topology analysis, 
+                            issue identification, solution implementation, and testing using Packet Tracer simulator.
+                        </p>
+                        <ul class="card-features">
+                            <li>Network Topology Analysis</li>
+                            <li>Issue Diagnosis & Root Cause Analysis</li>
+                            <li>Solution Design & Implementation</li>
+                            <li>Packet Tracer Simulation Testing</li>
+                            <li>Network Optimization Strategies</li>
+                            <li>Performance Improvement Verification</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="data communication/qn2/Network_Troubleshooting_Report.html" class="card-link">
+                                View Question 2
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">📋</div>
+                            <h3 class="card-title">Assignment Portfolio</h3>
+                        </div>
+                        <p class="card-description">
+                            Complete Data Communications & Networking practical portfolio with both 
+                            packet analysis and network troubleshooting assignments.
+                        </p>
+                        <ul class="card-features">
+                            <li>Interactive HTML Reports</li>
+                            <li>Copy Protection Implementation</li>
+                            <li>Comprehensive Documentation</li>
+                            <li>Professional Presentation</li>
+                            <li>Academic Standards Compliance</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="data communication/index.html" class="card-link">
+                                View Portfolio
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-completed">Completed</span>
                         </div>
                     </div>
                 </div>
@@ -891,14 +937,12 @@
                 }
             });
             
-            // Clear clipboard periodically
-            setInterval(function() {
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText('').catch(function() {
-                        // Ignore errors
-                    });
-                }
-            }, 1000);
+            // Clear clipboard on page load only (no periodic clearing to avoid permission popups)
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText('').catch(function() {
+                    // Ignore errors - clipboard access may not be available
+                });
+            }
             
             // Disable developer tools detection
             let devtools = {open: false, orientation: null};

@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIT 137 - Data Communications & Networking - Practical 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            margin: -20px -20px 30px -20px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header h2 {
+            font-size: 1.5em;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .student-info {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .student-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .info-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #28a745;
+        }
+
+        .section h2 {
+            color: #28a745;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #28a745;
+        }
+
+        .section h3 {
+            color: #495057;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h4 {
+            color: #6c757d;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        .problem-analysis {
+            background-color: #f8d7da;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #dc3545;
+        }
+
+        .problem-analysis h4 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+
+        .solution-box {
+            background-color: #d4edda;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #28a745;
+        }
+
+        .solution-box h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .screenshot {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #dee2e6;
+            position: relative;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            position: relative;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 48px;
+            font-weight: bold;
+            color: rgba(30, 64, 175, 0.15);
+            z-index: 10;
+            pointer-events: none;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            white-space: nowrap;
+            user-select: none;
+        }
+        
+        .watermark-small {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(30, 64, 175, 0.4);
+            background: rgba(255,255,255,0.8);
+            padding: 5px 10px;
+            border-radius: 3px;
+            z-index: 10;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .screenshot-caption {
+            font-style: italic;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        .findings {
+            background-color: #d4edda;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .findings h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .conclusion {
+            background-color: #cce5ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #007bff;
+        }
+
+        .conclusion h3 {
+            color: #004085;
+            margin-bottom: 15px;
+        }
+
+        .appendix {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .appendix h3 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .screenshot-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .screenshot-list li {
+            background-color: white;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .danger {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .info {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+
+        /* Copy Protection Styles */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Disable text highlighting */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Protection overlay */
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Network Troubleshooting Report</h1>
+            <h2>Data Communications & Networking</h2>
+            <h3>Practical Assignment 1 - Question 2</h3>
+            <p>Network Issues Diagnosis and Solutions</p>
+        </div>
+
+        <div class="student-info">
+            <h3>📋 Student Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Registration Number:</strong>
+                    UG2024-5-150
+                </div>
+                <div class="info-item">
+                    <strong>Student Name:</strong>
+                    Kelvin Charles Meena
+                </div>
+                <div class="info-item">
+                    <strong>Date:</strong>
+                    September 9, 2024
+                </div>
+                <div class="info-item">
+                    <strong>Tool Used:</strong>
+                    Cisco Packet Tracer
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Network Topology Analysis</h2>
+            
+            <div class="screenshot">
+                <div style="position: relative; display: inline-block;">
+                    <img src="badNetwork.png" alt="Original Network Topology with Issues">
+                    <div class="watermark">KELVIN CHARLES MEENA</div>
+                    <div class="watermark-small">UG2024-5-150</div>
+                </div>
+                <div class="screenshot-caption">Figure 1: Original Network Topology Showing Problems</div>
+            </div>
+
+            <div class="findings">
+                <h4>What I Found in My Network</h4>
+                <p>I created a simple network topology with:</p>
+                <ul>
+                    <li>1 Router connected to internet</li>
+                    <li>1 Switch connecting all devices</li>
+                    <li>4 Computers (PC0, PC1, PC2, PC3)</li>
+                    <li>1 Server for testing</li>
+                    <li>All devices connected to the same network</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Network Issues I Identified</h2>
+            
+            <div class="problem-analysis">
+                <h4>Issue 1: Slow Internet Connectivity</h4>
+                <p><strong>What I observed:</strong> When I tried to browse websites, pages took a very long time to load</p>
+                <p><strong>Why this happens:</strong> All devices are sharing the same internet connection without any management</p>
+            </div>
+
+            <div class="problem-analysis">
+                <h4>Issue 2: Inability to Access Network Resources</h4>
+                <p><strong>What I observed:</strong> Some computers couldn't reach the server or other computers</p>
+                <p><strong>Why this happens:</strong> No proper IP addressing scheme and network configuration</p>
+            </div>
+
+            <div class="problem-analysis">
+                <h4>Issue 3: Intermittent Connectivity Problems</h4>
+                <p><strong>What I observed:</strong> Sometimes the network works, sometimes it doesn't</p>
+                <p><strong>Why this happens:</strong> Network congestion and lack of proper network management</p>
+            </div>
+
+            <div class="problem-analysis">
+                <h4>Issue 4: Network Bottleneck Problems</h4>
+                <p><strong>What I observed:</strong> All devices slow down when one device uses a lot of internet</p>
+                <p><strong>Why this happens:</strong> All data has to go through one slow connection, like cars on a narrow road</p>
+            </div>
+
+            <div class="problem-analysis">
+                <h4>Issue 5: Single Point of Failure</h4>
+                <p><strong>What I observed:</strong> If one device breaks, the whole network stops working</p>
+                <p><strong>Why this happens:</strong> Only one router, one switch, or one server - no backup options</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Understanding Network Problems</h2>
+            
+            <div class="findings">
+                <h4>What is a Network Bottleneck?</h4>
+                <p>Think of a bottleneck like a narrow road where many cars have to squeeze through. In a network:</p>
+                <ul>
+                    <li><strong>What it is:</strong> A place where too much data tries to go through a part that's too small or too slow</li>
+                    <li><strong>What it causes:</strong> Slow internet, slow file transfers, everything feels sluggish</li>
+                    <li><strong>Real example:</strong> Like having 10 people trying to go through a door at the same time - everyone has to wait</li>
+                </ul>
+
+                <h4>What is a Single Point of Failure?</h4>
+                <p>This is like having only one bridge to cross a river. If that bridge breaks, no one can cross:</p>
+                <ul>
+                    <li><strong>What it is:</strong> Any part of your network that, if it stops working, causes a big part (or all) of your network to stop working</li>
+                    <li><strong>What it causes:</strong> Complete network shutdown or major outage</li>
+                    <li><strong>Real example:</strong> Like having only one key to your house - if you lose it, you can't get in</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Root Cause Analysis</h2>
+            
+            <div class="findings">
+                <h4>What I Discovered About Each Problem</h4>
+                
+                <h4>1. Slow Internet Connectivity - Root Causes:</h4>
+                <ul>
+                    <li><strong>No Quality of Service (QoS):</strong> All traffic treated equally</li>
+                    <li><strong>Bandwidth sharing:</strong> All devices compete for same internet speed</li>
+                    <li><strong>No traffic management:</strong> Heavy users slow down everyone</li>
+                    <li><strong>Single point of failure:</strong> Only one internet connection</li>
+                </ul>
+
+                <h4>2. Network Resource Access Issues - Root Causes:</h4>
+                <ul>
+                    <li><strong>Wrong IP configuration:</strong> Devices have incorrect IP addresses</li>
+                    <li><strong>No DHCP server:</strong> Manual IP assignment causes conflicts</li>
+                    <li><strong>Subnet problems:</strong> All devices in same subnet without organization</li>
+                    <li><strong>No DNS configuration:</strong> Can't resolve computer names</li>
+                </ul>
+
+                <h4>3. Intermittent Connectivity - Root Causes:</h4>
+                <ul>
+                    <li><strong>Network loops:</strong> Can cause broadcast storms</li>
+                    <li><strong>Switch overload:</strong> Too many devices on one switch</li>
+                    <li><strong>No redundancy:</strong> Single point of failure</li>
+                    <li><strong>Poor cable management:</strong> Loose connections</li>
+                </ul>
+
+                <h4>4. Network Bottleneck - Root Causes:</h4>
+                <ul>
+                    <li><strong>Single internet connection:</strong> All devices share one slow line</li>
+                    <li><strong>Old or slow equipment:</strong> Router/switch can't handle the load</li>
+                    <li><strong>No traffic management:</strong> Heavy users slow down everyone</li>
+                    <li><strong>Limited bandwidth:</strong> Not enough speed for all devices</li>
+                    <li><strong>Switch bottleneck:</strong> One switch handling too many devices at once</li>
+                    <li><strong>Slow cables:</strong> Using old cables that can't carry fast data</li>
+                </ul>
+
+                <h4>5. Single Point of Failure - Root Causes:</h4>
+                <ul>
+                    <li><strong>One router only:</strong> If it breaks, no internet for anyone</li>
+                    <li><strong>One switch only:</strong> If it fails, all devices disconnect</li>
+                    <li><strong>One server only:</strong> If it crashes, no shared resources</li>
+                    <li><strong>No backup power:</strong> Power outage kills everything</li>
+                    <li><strong>Switch failure:</strong> If the main switch dies, entire network goes down</li>
+                    <li><strong>Single power source:</strong> No backup power for critical devices</li>
+                </ul>
+
+                <h4>6. Switch-Specific Problems:</h4>
+                <ul>
+                    <li><strong>Switch overload:</strong> Too many devices connected to one switch</li>
+                    <li><strong>Switch bottleneck:</strong> All traffic must go through one switch port</li>
+                    <li><strong>Switch failure:</strong> If the switch breaks, all connected devices lose connection</li>
+                    <li><strong>No switch redundancy:</strong> Only one switch means no backup if it fails</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 My Proposed Solutions</h2>
+            
+            <div class="solution-box">
+                <h4>Solution 1: Fix IP Addressing and DHCP</h4>
+                <p><strong>What I will do:</strong> Set up proper IP addressing scheme</p>
+                <ul>
+                    <li>Configure router as DHCP server</li>
+                    <li>Use IP range 192.168.1.0/24</li>
+                    <li>Assign static IPs to server and router</li>
+                    <li>Let computers get IPs automatically</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>Solution 2: Implement VLANs for Better Organization</h4>
+                <p><strong>What I will do:</strong> Separate devices into logical groups</p>
+                <ul>
+                    <li>Create VLAN 10 for computers</li>
+                    <li>Create VLAN 20 for servers</li>
+                    <li>Configure inter-VLAN routing</li>
+                    <li>Improve network security and performance</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>Solution 3: Add Network Redundancy</h4>
+                <p><strong>What I will do:</strong> Make network more reliable</p>
+                <ul>
+                    <li>Add backup links between devices</li>
+                    <li>Configure spanning tree protocol</li>
+                    <li>Implement link aggregation</li>
+                    <li>Add backup power supply</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>Solution 4: Implement Quality of Service (QoS)</h4>
+                <p><strong>What I will do:</strong> Prioritize important traffic</p>
+                <ul>
+                    <li>Give priority to voice and video traffic</li>
+                    <li>Limit bandwidth for file downloads</li>
+                    <li>Configure traffic shaping</li>
+                    <li>Monitor network usage</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>Solution 5: Fix Bottleneck Problems</h4>
+                <p><strong>What I will do:</strong> Remove traffic bottlenecks</p>
+                <ul>
+                    <li>Upgrade to faster internet connection</li>
+                    <li>Use faster switches and routers</li>
+                    <li>Implement load balancing</li>
+                    <li>Add multiple network paths</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h4>Solution 6: Eliminate Single Points of Failure</h4>
+                <p><strong>What I will do:</strong> Add redundancy and backup systems</p>
+                <ul>
+                    <li>Add backup router for internet connection</li>
+                    <li>Use multiple switches with redundancy</li>
+                    <li>Set up backup servers</li>
+                    <li>Install UPS (Uninterruptible Power Supply)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🛠️ Implementation in Packet Tracer</h2>
+            
+            <div class="screenshot">
+                <div style="position: relative; display: inline-block;">
+                    <img src="improved.png" alt="Improved Network Topology">
+                    <div class="watermark">KELVIN CHARLES MEENA</div>
+                    <div class="watermark-small">UG2024-5-150</div>
+                </div>
+                <div class="screenshot-caption">Figure 2: Improved Network Topology After Fixes</div>
+            </div>
+
+            <div class="findings">
+                <h4>What I Did in Packet Tracer</h4>
+                
+                <h4>Step 1: Configured Router Settings</h4>
+                <ul>
+                    <li>Set router IP address to 192.168.1.1</li>
+                    <li>Enabled DHCP service</li>
+                    <li>Configured NAT for internet access</li>
+                    <li>Set up routing table</li>
+                </ul>
+
+                <h4>Step 2: Configured Switch Settings</h4>
+                <ul>
+                    <li>Created VLANs 10 and 20</li>
+                    <li>Assigned ports to appropriate VLANs</li>
+                    <li>Configured trunk ports</li>
+                    <li>Enabled spanning tree protocol</li>
+                </ul>
+
+                <h4>Step 3: Set Up DHCP Server</h4>
+                <ul>
+                    <li>Configured IP pool 192.168.1.10-192.168.1.50</li>
+                    <li>Set default gateway to 192.168.1.1</li>
+                    <li>Configured DNS server addresses</li>
+                    <li>Set lease time to 24 hours</li>
+                </ul>
+
+                <h4>Step 4: Configured End Devices</h4>
+                <ul>
+                    <li>Set all PCs to use DHCP</li>
+                    <li>Assigned static IP to server (192.168.1.100)</li>
+                    <li>Configured DNS settings</li>
+                    <li>Tested connectivity between devices</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>✅ Testing and Verification</h2>
+            
+            <div class="findings">
+                <h4>How I Tested My Solutions</h4>
+                
+                <h4>Test 1: Internet Connectivity</h4>
+                <ul>
+                    <li>✅ All computers can now access internet</li>
+                    <li>✅ Web pages load much faster than before</li>
+                    <li>✅ No more timeout errors</li>
+                    <li>✅ Consistent connection speed</li>
+                </ul>
+
+                <h4>Test 2: Local Network Access</h4>
+                <ul>
+                    <li>✅ All computers can ping each other</li>
+                    <li>✅ Server is accessible from all PCs</li>
+                    <li>✅ File sharing works properly</li>
+                    <li>✅ No more "network unreachable" errors</li>
+                </ul>
+
+                <h4>Test 3: Network Stability</h4>
+                <ul>
+                    <li>✅ No more intermittent disconnections</li>
+                    <li>✅ Network remains stable under load</li>
+                    <li>✅ Fast recovery from any issues</li>
+                    <li>✅ Consistent performance</li>
+                </ul>
+
+                <h4>Test 4: Performance Improvement</h4>
+                <ul>
+                    <li>✅ Internet speed improved significantly</li>
+                    <li>✅ Local network transfers are faster</li>
+                    <li>✅ No more network congestion</li>
+                    <li>✅ Better resource utilization</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="conclusion">
+            <h3>🎯 What I Learned from This Exercise</h3>
+            
+            <h4>Key Lessons</h4>
+            <ul>
+                <li><strong>Proper IP addressing is crucial:</strong> Without correct IP configuration, nothing works properly</li>
+                <li><strong>DHCP makes life easier:</strong> Automatic IP assignment prevents conflicts and saves time</li>
+                <li><strong>VLANs improve organization:</strong> Separating devices into logical groups makes management easier</li>
+                <li><strong>Redundancy prevents failures:</strong> Having backup connections keeps network running</li>
+                <li><strong>Testing is important:</strong> Always test your solutions to make sure they work</li>
+            </ul>
+
+            <h4>Network Troubleshooting Process</h4>
+            <p>I learned that troubleshooting network problems follows these steps:</p>
+            <ol>
+                <li><strong>Identify the problem:</strong> What exactly is not working?</li>
+                <li><strong>Find the root cause:</strong> Why is this happening?</li>
+                <li><strong>Plan the solution:</strong> How can I fix this?</li>
+                <li><strong>Implement the fix:</strong> Apply the solution carefully</li>
+                <li><strong>Test the results:</strong> Make sure everything works</li>
+                <li><strong>Document the changes:</strong> Keep records for future reference</li>
+            </ol>
+
+            <h4>Future Improvements</h4>
+            <p>If I had more time and resources, I would also add:</p>
+            <ul>
+                <li>Wireless access points for mobile devices</li>
+                <li>Network monitoring tools</li>
+                <li>Firewall for better security</li>
+                <li>Backup internet connection</li>
+                <li>Network documentation and diagrams</li>
+            </ul>
+        </div>
+
+        <div class="appendix">
+            <h3>📎 Appendix: Files and Resources</h3>
+            <ul class="screenshot-list">
+                <li><strong>badNetwork.png</strong> - Original network topology showing problems</li>
+                <li><strong>improved.png</strong> - Fixed network topology after implementation</li>
+                <li><strong>prac2.pkt</strong> - Packet Tracer file with working network</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background-color: #f8f9fa; border-radius: 10px;">
+            <p><strong>Student:</strong> Kelvin Charles Meena (UG2024-5-150)</p>
+            <p><strong>Tool Used:</strong> Cisco Packet Tracer</p>
+            <p><strong>Analysis Method:</strong> Network Troubleshooting and Problem Solving</p>
+        </div>
+    </div>
+    
+    <!-- Protection Overlay -->
+    <div class="protection-overlay"></div>
+
+    <script>
+        // Copy Protection JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // Disable F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+I (Developer Tools)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+S (Save Page)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+A (Select All)
+                if (e.ctrlKey && e.keyCode === 65) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+C (Copy)
+                if (e.ctrlKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+V (Paste)
+                if (e.ctrlKey && e.keyCode === 86) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+X (Cut)
+                if (e.ctrlKey && e.keyCode === 88) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+P (Print)
+                if (e.ctrlKey && e.keyCode === 80) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable image saving
+            document.addEventListener('drag', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable print screen (basic protection)
+            document.addEventListener('keyup', function(e) {
+                if (e.keyCode === 44) { // Print Screen key
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Clear clipboard on page load only (no periodic clearing to avoid permission popups)
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText('').catch(function() {
+                    // Ignore errors - clipboard access may not be available
+                });
+            }
+            
+            // Disable developer tools detection
+            let devtools = {open: false, orientation: null};
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-size:24px;color:red;">Access Denied - Developer Tools Detected</div>';
+                    }
+                }
+            }, 500);
+            
+            // Disable console
+            console.clear();
+            console.log = function() {};
+            console.warn = function() {};
+            console.error = function() {};
+            console.info = function() {};
+            console.debug = function() {};
+            
+            // Disable alert and confirm
+            window.alert = function() {};
+            window.confirm = function() { return false; };
+            window.prompt = function() { return null; };
+        });
+    </script>
+</body>
+</html>

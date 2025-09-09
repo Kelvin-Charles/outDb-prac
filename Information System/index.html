@@ -572,14 +572,12 @@
                 }
             });
             
-            // Clear clipboard periodically
-            setInterval(function() {
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText('').catch(function() {
-                        // Ignore errors
-                    });
-                }
-            }, 1000);
+            // Clear clipboard on page load only (no periodic clearing to avoid permission popups)
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText('').catch(function() {
+                    // Ignore errors - clipboard access may not be available
+                });
+            }
             
             // Disable developer tools detection
             let devtools = {open: false, orientation: null};
