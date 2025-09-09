@@ -165,7 +165,7 @@
         /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
@@ -227,12 +227,14 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
+            word-break: break-word;
         }
         
         .card-description {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
             line-height: 1.6;
+            word-break: break-word;
         }
         
         .card-features {
@@ -355,6 +357,54 @@
                 font-size: 2rem;
             }
         }
+
+        /* Additional responsive refinements */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 64px 0;
+            }
+            .header h1 {
+                font-size: 3rem;
+            }
+            .cards-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+            .nav-content {
+                gap: 0.5rem;
+            }
+            .card {
+                padding: 1.25rem;
+            }
+            .card-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.25rem;
+            }
+            .card-title {
+                font-size: 1.25rem;
+            }
+            .section-title {
+                font-size: 1.75rem;
+            }
+            .section-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header .subtitle {
+                font-size: 1rem;
+            }
+        }
         
         /* Copy Protection */
         .link-card h3, .link-card p {
@@ -402,6 +452,8 @@
                 <a href="#programming" class="nav-item">Programming</a>
                 <a href="#information-systems" class="nav-item">Information Systems</a>
                 <a href="#database" class="nav-item">Database</a>
+                <a href="#computer-architecture" class="nav-item">Computer Architecture</a>
+                <a href="#data-networking" class="nav-item">Data Comm & Networking</a>
                 <a href="#about" class="nav-item">About</a>
             </div>
         </div>
@@ -529,6 +581,85 @@
                                 <span>→</span>
                             </a>
                             <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Computer Architecture Section -->
+            <section id="computer-architecture" class="section">
+                <h2 class="section-title">Computer Architecture</h2>
+                <p class="section-subtitle">Digital systems and logic design with Logisim</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">⚙️</div>
+                            <h3 class="card-title">Practical: Coordinated Multi-Junction Traffic Management System</h3>
+                        </div>
+                        <p class="card-description">
+                            OIT 115/135 – Computer Architecture practical to design and simulate a coordinated
+                            multi-intersection traffic management system for Dar es Salaam using Logisim.
+                        </p>
+                        <ul class="card-features">
+                            <li><strong>Deadline:</strong> 18 September 2025</li>
+                            <li><strong>Deliverables:</strong> PDF report (≤3 pages) and Logisim file (.circ)</li>
+                            <li><strong>Submission:</strong> Upload both files to Moodle (email not accepted)</li>
+                            <li><strong>Identification:</strong> Include Reg No, Full Name, and Course Code (OIT 115/135)</li>
+                            <li><strong>If late:</strong> Alternative practical (Nov 2025 – Jan 2026, face-to-face)</li>
+                            <li><strong>Design rule:</strong> Use only fundamental logic gates and basic Logisim components</li>
+                        </ul>
+                        <div class="card-description" style="margin-top: 0.5rem;">
+                            Report structure:
+                            <br>• Page 1: Proposed solution, challenges, assumptions
+                            <br>• Page 2: Circuit diagram (clear, well-commented) and professional advice
+                            <br>• + Logisim simulation file (.circ)
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <a class="card-link" style="pointer-events: none; opacity: 0.6;">
+                                Coming Soon
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-in-progress">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Data Communications & Networking Section -->
+            <section id="data-networking" class="section">
+                <h2 class="section-title">Data Communications & Networking</h2>
+                <p class="section-subtitle">Protocols, packet analysis, troubleshooting, and simulation</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">📡</div>
+                            <h3 class="card-title">OIT 137 – Practical 1 & 2</h3>
+                        </div>
+                        <p class="card-description">
+                            Packet capture and analysis using Wireshark/Packet Tracer and network troubleshooting on a given topology.
+                        </p>
+                        <ul class="card-features">
+                            <li><strong>Instructions:</strong> No copy/paste (50% cut), no plagiarism, work individually</li>
+                            <li>Use drawing tools, include registration number clearly, submit PDF</li>
+                            <li><strong>Task 1:</strong> Capture packets and analyze</li>
+                            <li>• Identify protocols at each OSI layer</li>
+                            <li>• Explain role of each protocol in communication</li>
+                            <li>• Show how L3 routing decisions are indicated</li>
+                            <li>• Discuss how L4 ensures integrity and order</li>
+                            <li><strong>Task 2:</strong> Troubleshoot provided topology</li>
+                            <li>• Diagnose issues from symptoms (slow, inaccessible resources, intermittent)</li>
+                            <li>• Identify potential causes for each symptom</li>
+                            <li>• Propose solutions and justify</li>
+                            <li>• Implement in a simulator and verify fixes</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <a class="card-link" style="pointer-events: none; opacity: 0.6;">
+                                Coming Soon
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-in-progress">In Progress</span>
                         </div>
                     </div>
                 </div>
