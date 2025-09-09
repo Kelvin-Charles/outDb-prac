@@ -11,6 +11,16 @@
             margin: 0;
             padding: 20px;
             background-color: #f9f9f9;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         .page {
@@ -236,7 +246,8 @@
             color: #495057;
         }
         
-        pre {
+        .code-section pre {
+            position: relative;
             background-color: #2d3748;
             color: #e2e8f0;
             padding: 15px;
@@ -244,12 +255,63 @@
             overflow-x: auto;
             font-size: 12px;
             line-height: 1.4;
+            filter: blur(8px);
+            pointer-events: none;
+        }
+        .code-section pre::before {
+            content: 'UG2024-5-150';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            color: rgba(255, 255, 255, 0.18);
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        .code-section pre::after {
+            content: 'Source code hidden';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.45);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .code-section code {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         
         .screenshot {
             text-align: center;
             margin: 20px 0;
             page-break-inside: avoid;
+        }
+        .screenshot {
+            position: relative;
+            overflow: hidden;
+        }
+        .screenshot::after {
+            content: 'UG2024-5-150';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.25);
         }
         
         .screenshot img {
@@ -258,6 +320,11 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
         }
         
         .screenshot-caption {
@@ -453,6 +520,18 @@
                 overflow: visible !important;
                 white-space: pre-wrap !important;
                 word-wrap: break-word !important;
+                filter: blur(6px) !important;
+            }
+            .code-section pre::before {
+                content: 'UG2024-5-150' !important;
+                color: rgba(255, 255, 255, 0.2) !important;
+                font-size: 36pt !important;
+            }
+            .screenshot::after {
+                content: 'UG2024-5-150' !important;
+                color: rgba(255, 255, 255, 0.3) !important;
+                font-size: 40pt !important;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.25) !important;
             }
             
             .screenshot {
@@ -990,6 +1069,37 @@ void view_transaction_history(BankAccount *account) {
     <script>
         // Set current date
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB');
+        
+        // Basic copy protection
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+            // Ctrl/Meta combos for copy/cut/paste/print/select-all/view-source
+            if ((e.ctrlKey || e.metaKey) && [65,67,83,80,85,88,86].includes(e.keyCode)) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I/J (devtools)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) {
+                e.preventDefault();
+                return false;
+            }
+        });
     </script>
 </body>
 </html>
