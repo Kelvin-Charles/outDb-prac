@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming Practical Report - OIT 136</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .page {
+            background-color: white;
+            margin: 0 auto;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            min-height: 1000px;
+        }
+        
+        .cover-page {
+            text-align: center;
+            padding: 0;
+            position: relative;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .blue-header-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(90deg, #1e40af 0%, #3b82f6 50%, #1e40af 100%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .cover-content {
+            padding: 60px 40px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .university-logo {
+            width: 140px;
+            height: auto;
+            margin: 0 auto 30px auto;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+        
+        .university-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .university-name {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            color: #1e40af;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .university-name::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #1e40af);
+            border-radius: 2px;
+        }
+        
+        .course-details {
+            text-align: left;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .detail-row {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.3s ease;
+        }
+        
+        .detail-row:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 8px -12px;
+        }
+        
+        .detail-row .label {
+            font-weight: 700;
+            min-width: 200px;
+            color: #1e40af;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-row .value {
+            color: #374151;
+            flex: 1;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(30, 64, 175, 0.1));
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .circle-1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 40px;
+            height: 40px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .date {
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        
+        .content-page {
+            page-break-before: always;
+        }
+        
+        .question-section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .question-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .scenario {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .scenario h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .requirements {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-left: 4px solid #27ae60;
+            margin-bottom: 20px;
+        }
+        
+        .requirements h4 {
+            margin-top: 0;
+            color: #27ae60;
+        }
+        
+        .code-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-section h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        pre {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .screenshot {
+            text-align: center;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .screenshot-caption {
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .features {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+        
+        .features h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+        
+        .features ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .conclusion {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 4px solid #17a2b8;
+            margin-top: 30px;
+        }
+        
+        .conclusion h3 {
+            margin-top: 0;
+            color: #0c5460;
+        }
+        
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            body {
+                background-color: white !important;
+                margin: 0;
+                padding: 0;
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            .page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 20mm !important;
+                max-width: none !important;
+                min-height: auto !important;
+                page-break-after: always;
+            }
+            
+            .cover-page {
+                background: white !important;
+                min-height: auto !important;
+                display: block !important;
+                justify-content: normal !important;
+                page-break-after: always;
+            }
+            
+            .cover-content {
+                padding: 0 !important;
+                max-width: none !important;
+                margin: 0 !important;
+            }
+            
+            .blue-header-bar {
+                background: #1e40af !important;
+                height: 8px !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .university-logo {
+                width: 100px !important;
+                margin: 20px auto 20px auto !important;
+                filter: none !important;
+                transition: none !important;
+            }
+            
+            .university-logo:hover {
+                transform: none !important;
+            }
+            
+            .university-name {
+                font-size: 18pt !important;
+                margin-bottom: 30px !important;
+                text-shadow: none !important;
+                color: #1e40af !important;
+            }
+            
+            .university-name::after {
+                background: #1e40af !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .course-details {
+                background: white !important;
+                border: 2px solid #1e40af !important;
+                border-radius: 8px !important;
+                box-shadow: none !important;
+                backdrop-filter: none !important;
+                margin: 30px auto !important;
+                padding: 20px !important;
+                max-width: 500px !important;
+            }
+            
+            .detail-row {
+                margin-bottom: 12px !important;
+                padding: 4px 0 !important;
+                border-bottom: 1px solid #e5e7eb !important;
+                transition: none !important;
+                page-break-inside: avoid;
+            }
+            
+            .detail-row:hover {
+                background-color: transparent !important;
+                border-radius: 0 !important;
+                padding: 4px 0 !important;
+                margin: 0 !important;
+            }
+            
+            .detail-row .label {
+                color: #1e40af !important;
+                font-size: 11pt !important;
+                min-width: 180px !important;
+            }
+            
+            .detail-row .value {
+                color: #000 !important;
+                font-size: 12pt !important;
+            }
+            
+            .date {
+                margin-top: 30px !important;
+                font-size: 11pt !important;
+                color: #000 !important;
+            }
+            
+            .decorative-elements {
+                display: none !important;
+            }
+            
+            .content-page {
+                page-break-before: always;
+            }
+            
+            .question-section {
+                page-break-inside: avoid;
+                margin-bottom: 30px !important;
+            }
+            
+            .question-title {
+                font-size: 16pt !important;
+                color: #1e40af !important;
+                page-break-after: avoid;
+            }
+            
+            .scenario, .requirements, .features, .conclusion {
+                page-break-inside: avoid;
+                margin: 15px 0 !important;
+                padding: 12px !important;
+            }
+            
+            .code-section {
+                page-break-inside: avoid;
+                margin: 15px 0 !important;
+                padding: 15px !important;
+                background: #f8f9fa !important;
+                border: 1px solid #dee2e6 !important;
+            }
+            
+            .code-section h4 {
+                font-size: 12pt !important;
+                margin-bottom: 10px !important;
+            }
+            
+            pre {
+                font-size: 9pt !important;
+                line-height: 1.2 !important;
+                background: #2d3748 !important;
+                color: #e2e8f0 !important;
+                padding: 10px !important;
+                overflow: visible !important;
+                white-space: pre-wrap !important;
+                word-wrap: break-word !important;
+            }
+            
+            .screenshot {
+                page-break-inside: avoid;
+                margin: 15px 0 !important;
+                text-align: center !important;
+            }
+            
+            .screenshot img {
+                max-width: 100% !important;
+                height: auto !important;
+                border: 1px solid #000 !important;
+                box-shadow: none !important;
+            }
+            
+            .screenshot-caption {
+                font-size: 10pt !important;
+                color: #000 !important;
+                margin-top: 5px !important;
+            }
+            
+            h2, h3, h4 {
+                color: #1e40af !important;
+                page-break-after: avoid;
+            }
+            
+            ul, ol {
+                page-break-inside: avoid;
+            }
+            
+            li {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="page cover-page">
+        <div class="blue-header-bar"></div>
+        
+        <div class="decorative-elements">
+            <div class="decorative-circle circle-1"></div>
+            <div class="decorative-circle circle-2"></div>
+            <div class="decorative-circle circle-3"></div>
+        </div>
+        
+        <div class="cover-content">
+            <img src="logo/out.avif" alt="OUT Logo" class="university-logo">
+            
+            <div class="university-name">OPEN UNIVERSITY OF TANZANIA</div>
+            
+            <div class="course-details">
+                <div class="detail-row">
+                    <span class="label">COURSE NAME:</span>
+                    <span class="value">Bachelor of Science in Information and Communication Technology</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">WORK:</span>
+                    <span class="value">Practical I</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">SUBJECT NAME:</span>
+                    <span class="value">Programming in C</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">COURSE CODE:</span>
+                    <span class="value">OIT 136</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">STUDENT NAME:</span>
+                    <span class="value">Kelvin Charles Meena</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">REGISTRATION NUMBER:</span>
+                    <span class="value">UG2024-5-150</span>
+                </div>
+            </div>
+            
+            <div class="date">
+                <strong>Date of Submission:</strong> <span id="current-date"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Page -->
+    <div class="page content-page">
+        <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">PRACTICAL IMPLEMENTATION REPORT</h2>
+        
+        <!-- Question 1 -->
+        <div class="question-section">
+            <div class="question-title">Question 1: Student Marks Analysis System</div>
+            
+            <div class="scenario">
+                <h4>Scenario:</h4>
+                <p>A lecturer at the Open University of Tanzania needs to process marks for a class of students. Each student has marks in three subjects. The system should provide comprehensive analysis of student performance.</p>
+            </div>
+            
+            <div class="requirements">
+                <h4>Requirements:</h4>
+                <ul>
+                    <li>Accept marks for multiple students (up to 10)</li>
+                    <li>Calculate the average mark for each student</li>
+                    <li>Find and display the student with the highest average</li>
+                    <li>Find and display the student with the lowest average</li>
+                    <li>Provide a comprehensive performance summary</li>
+                </ul>
+            </div>
+            
+            <div class="code-section">
+                <h4>Complete Source Code:</h4>
+                <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;limits.h&gt;
+
+#define MAX_STUDENTS 10
+#define NUM_SUBJECTS 3
+#define MAX_NAME_LENGTH 40
+
+typedef struct {
+    int student_number;
+    char full_name[MAX_NAME_LENGTH];
+    int subject_scores[NUM_SUBJECTS];
+    double performance_index;
+} AcademicRecord;
+
+void input_academic_records(AcademicRecord records[], int *record_count);
+void calculate_performance(AcademicRecord records[], int record_count);
+void display_academic_summary(AcademicRecord records[], int record_count);
+void analyze_student_performance(AcademicRecord records[], int record_count);
+int validate_numeric_input(const char *prompt, int min, int max);
+
+int main() {
+    AcademicRecord student_records[MAX_STUDENTS];
+    int total_records = 0;
+    int user_choice;
+
+    printf("Academic Performance Tracking System\n");
+    printf("Open University Academic Analytics\n\n");
+
+    while (1) {
+        printf("\n--- MAIN MENU ---\n");
+        printf("1. Record Student Scores\n");
+        
+        if (total_records > 0) {
+            printf("2. View Performance Summary\n");
+            printf("3. Detailed Performance Analysis\n");
+            printf("4. Reset Records\n");
+            printf("5. Exit System\n");
+        }
+
+        user_choice = validate_numeric_input("Select an option: ", 1, total_records > 0 ? 5 : 1);
+
+        if (total_records == 0) {
+            input_academic_records(student_records, &total_records);
+            calculate_performance(student_records, total_records);
+        } else {
+            switch (user_choice) {
+                case 1:
+                    input_academic_records(student_records, &total_records);
+                    calculate_performance(student_records, total_records);
+                    break;
+                case 2:
+                    display_academic_summary(student_records, total_records);
+                    break;
+                case 3:
+                    analyze_student_performance(student_records, total_records);
+                    break;
+                case 4:
+                    total_records = 0;
+                    printf("All records have been reset.\n");
+                    break;
+                case 5:
+                    printf("Exiting Academic Performance Tracking System.\n");
+                    exit(0);
+            }
+        }
+    }
+
+    return 0;
+}
+
+int validate_numeric_input(const char *prompt, int min, int max) {
+    int value;
+    char buffer[100];
+
+    while (1) {
+        printf("%s", prompt);
+        
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            printf("Input error. Try again.\n");
+            continue;
+        }
+
+        if (sscanf(buffer, "%d", &value) == 1) {
+            if (value >= min && value <= max) {
+                return value;
+            } else {
+                printf("Invalid input. Must be between %d and %d.\n", min, max);
+            }
+        } else {
+            printf("Numeric input required.\n");
+        }
+    }
+}
+
+void input_academic_records(AcademicRecord records[], int *record_count) {
+    int num_students = validate_numeric_input("Enter number of students (1-10): ", 1, MAX_STUDENTS);
+    *record_count = num_students;
+
+    for (int i = 0; i < num_students; i++) {
+        printf("\nStudent %d Details:\n", i + 1);
+        
+        records[i].student_number = validate_numeric_input("Student Identification Number: ", 1, INT_MAX);
+        
+        printf("Full Name: ");
+        fgets(records[i].full_name, sizeof(records[i].full_name), stdin);
+        records[i].full_name[strcspn(records[i].full_name, "\n")] = 0;
+
+        printf("Subject Scores (0-100):\n");
+        for (int j = 0; j < NUM_SUBJECTS; j++) {
+            char prompt[50];
+            snprintf(prompt, sizeof(prompt), "Score for Subject %d: ", j + 1);
+            records[i].subject_scores[j] = validate_numeric_input(prompt, 0, 100);
+        }
+    }
+}
+
+void calculate_performance(AcademicRecord records[], int record_count) {
+    for (int i = 0; i < record_count; i++) {
+        int total_score = 0;
+        for (int j = 0; j < NUM_SUBJECTS; j++) {
+            total_score += records[i].subject_scores[j];
+        }
+        records[i].performance_index = (double)total_score / NUM_SUBJECTS;
+    }
+}
+
+void display_academic_summary(AcademicRecord records[], int record_count) {
+    printf("\n--- ACADEMIC PERFORMANCE SUMMARY ---\n");
+    printf("%-10s %-20s %-15s %-15s %-15s %-12s\n", 
+           "ID", "Name", "Subject 1", "Subject 2", "Subject 3", "Avg Score");
+    printf("------------------------------------------------------------\n");
+
+    for (int i = 0; i < record_count; i++) {
+        printf("%-10d %-20s ", 
+               records[i].student_number, 
+               records[i].full_name);
+        
+        for (int j = 0; j < NUM_SUBJECTS; j++) {
+            printf("%-15d ", records[i].subject_scores[j]);
+        }
+        
+        printf("%-12.2f\n", records[i].performance_index);
+    }
+}
+
+void analyze_student_performance(AcademicRecord records[], int record_count) {
+    int top_performer = 0, bottom_performer = 0;
+
+    for (int i = 1; i < record_count; i++) {
+        if (records[i].performance_index > records[top_performer].performance_index) {
+            top_performer = i;
+        }
+        if (records[i].performance_index < records[bottom_performer].performance_index) {
+            bottom_performer = i;
+        }
+    }
+
+    printf("\n--- PERFORMANCE BREAKDOWN ---\n");
+    printf("Top Performer:\n");
+    printf("  Name: %s\n", records[top_performer].full_name);
+    printf("  ID: %d\n", records[top_performer].student_number);
+    printf("  Average Score: %.2f\n", records[top_performer].performance_index);
+    printf("  Subject Scores:\n");
+    printf("    Subject 1: %d\n", records[top_performer].subject_scores[0]);
+    printf("    Subject 2: %d\n", records[top_performer].subject_scores[1]);
+    printf("    Subject 3: %d\n", records[top_performer].subject_scores[2]);
+
+    printf("\nLowest Performer:\n");
+    printf("  Name: %s\n", records[bottom_performer].full_name);
+    printf("  ID: %d\n", records[bottom_performer].student_number);
+    printf("  Average Score: %.2f\n", records[bottom_performer].performance_index);
+    printf("  Subject Scores:\n");
+    printf("    Subject 1: %d\n", records[bottom_performer].subject_scores[0]);
+    printf("    Subject 2: %d\n", records[bottom_performer].subject_scores[1]);
+    printf("    Subject 3: %d\n", records[bottom_performer].subject_scores[2]);
+}</code></pre>
+            </div>
+            
+            <div class="features">
+                <h4>Key Features Implemented:</h4>
+                <ul>
+                    <li><strong>Data Structure:</strong> Used struct to organize student data efficiently</li>
+                    <li><strong>Input Validation:</strong> Comprehensive validation for all user inputs</li>
+                    <li><strong>Menu System:</strong> Interactive menu for easy navigation</li>
+                    <li><strong>Performance Analysis:</strong> Automatic calculation of averages and identification of top/bottom performers</li>
+                    <li><strong>Data Display:</strong> Formatted output for clear presentation of results</li>
+                    <li><strong>Error Handling:</strong> Robust error handling for invalid inputs</li>
+                </ul>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/question1/qn1 general.png" alt="Question 1 General Output">
+                <div class="screenshot-caption">Figure 1.1: General output showing the main menu and student data entry</div>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/question1/qn1 last.png" alt="Question 1 Final Analysis">
+                <div class="screenshot-caption">Figure 1.2: Final analysis showing top and bottom performers</div>
+            </div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question-section">
+            <div class="question-title">Question 2: Bank ATM Simulation System</div>
+            
+            <div class="scenario">
+                <h4>Scenario:</h4>
+                <p>A local bank wants to simulate a simple ATM system that allows customers to perform basic banking operations including deposits, withdrawals, balance inquiries, and transaction history.</p>
+            </div>
+            
+            <div class="requirements">
+                <h4>Requirements:</h4>
+                <ul>
+                    <li>Start with an initial balance of 500,000 TZS</li>
+                    <li>Display a menu with banking options</li>
+                    <li>Allow deposits and withdrawals</li>
+                    <li>Check account balance</li>
+                    <li>View transaction history</li>
+                    <li>Ensure withdrawal amount cannot exceed current balance</li>
+                    <li>Allow multiple transactions until user chooses to exit</li>
+                </ul>
+            </div>
+            
+            <div class="code-section">
+                <h4>Complete Source Code:</h4>
+                <pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;time.h&gt;
+
+#define INITIAL_BALANCE 500000.0
+#define MAX_TRANSACTION 1000000.0
+#define MAX_TRANSACTIONS 100
+
+typedef struct {
+    double amount;
+    char type[20];
+    time_t timestamp;
+} Transaction;
+
+typedef struct {
+    double balance;
+    Transaction transaction_log[MAX_TRANSACTIONS];
+    int transaction_count;
+} BankAccount;
+
+void display_options();
+void process_deposit(BankAccount *account);
+void process_withdrawal(BankAccount *account);
+void view_balance(BankAccount *account);
+void view_transaction_history(BankAccount *account);
+double get_validated_amount(const char *prompt, double min, double max);
+
+int main() {
+    BankAccount user_account = {INITIAL_BALANCE, {0}, 0};
+    int choice;
+
+    printf("Financial Management Terminal\n");
+    printf("Welcome to Personal Banking Solution\n\n");
+    printf("Initial Account Balance: TZS %.2f\n\n", user_account.balance);
+
+    while (1) {
+        display_options();
+        choice = get_validated_amount("Select Operation: ", 1, 5);
+
+        switch ((int)choice) {
+            case 1:
+                process_deposit(&user_account);
+                break;
+            case 2:
+                process_withdrawal(&user_account);
+                break;
+            case 3:
+                view_balance(&user_account);
+                break;
+            case 4:
+                view_transaction_history(&user_account);
+                break;
+            case 5:
+                printf("\nThank you for using Personal Banking Solution. Goodbye!\n");
+                exit(0);
+        }
+    }
+
+    return 0;
+}
+
+void display_options() {
+    printf("\n--- BANKING OPERATIONS ---\n");
+    printf("1. Add Funds\n");
+    printf("2. Withdraw Cash\n");
+    printf("3. Check Balance\n");
+    printf("4. Transaction History\n");
+    printf("5. Exit System\n");
+}
+
+double get_validated_amount(const char *prompt, double min, double max) {
+    double value;
+    char buffer[100];
+
+    while (1) {
+        printf("%s", prompt);
+        
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            printf("Input processing error.\n");
+            continue;
+        }
+
+        if (sscanf(buffer, "%lf", &value) == 1) {
+            if (value >= min && value <= max) {
+                return value;
+            } else {
+                printf("Invalid input. Range: %.2f - %.2f\n", min, max);
+            }
+        } else {
+            printf("Numeric input required.\n");
+        }
+    }
+}
+
+void log_transaction(BankAccount *account, double amount, const char *type) {
+    if (account->transaction_count < MAX_TRANSACTIONS) {
+        Transaction *transaction = &account->transaction_log[account->transaction_count];
+        transaction->amount = amount;
+        strcpy(transaction->type, type);
+        transaction->timestamp = time(NULL);
+        account->transaction_count++;
+    }
+}
+
+void process_deposit(BankAccount *account) {
+    double deposit_amount = get_validated_amount("Enter deposit amount (TZS): ", 1, MAX_TRANSACTION);
+    
+    account->balance += deposit_amount;
+    log_transaction(account, deposit_amount, "DEPOSIT");
+    
+    printf("Deposit successful!\n");
+    printf("New Balance: TZS %.2f\n", account->balance);
+}
+
+void process_withdrawal(BankAccount *account) {
+    double withdrawal_amount;
+    
+    do {
+        withdrawal_amount = get_validated_amount("Enter withdrawal amount (TZS): ", 1, account->balance);
+        
+        if (withdrawal_amount > account->balance) {
+            printf("Insufficient funds. Current balance: TZS %.2f\n", account->balance);
+        } else {
+            break;
+        }
+    } while (1);
+    
+    account->balance -= withdrawal_amount;
+    log_transaction(account, withdrawal_amount, "WITHDRAWAL");
+    
+    printf("Withdrawal successful!\n");
+    printf("New Balance: TZS %.2f\n", account->balance);
+}
+
+void view_balance(BankAccount *account) {
+    printf("\n--- ACCOUNT BALANCE ---\n");
+    printf("Current Balance: TZS %.2f\n", account->balance);
+}
+
+void view_transaction_history(BankAccount *account) {
+    printf("\n--- TRANSACTION HISTORY ---\n");
+    
+    if (account->transaction_count == 0) {
+        printf("No transactions recorded.\n");
+        return;
+    }
+    
+    printf("%-20s %-15s %-15s\n", "Timestamp", "Type", "Amount (TZS)");
+    printf("---------------------------------------------\n");
+    
+    for (int i = 0; i < account->transaction_count; i++) {
+        char time_str[30];
+        strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", localtime(&account->transaction_log[i].timestamp));
+        
+        printf("%-20s %-15s %-15.2f\n", 
+               time_str, 
+               account->transaction_log[i].type, 
+               account->transaction_log[i].amount);
+    }
+}</code></pre>
+            </div>
+            
+            <div class="features">
+                <h4>Key Features Implemented:</h4>
+                <ul>
+                    <li><strong>Account Management:</strong> Structured approach to managing bank account data</li>
+                    <li><strong>Transaction Logging:</strong> Complete transaction history with timestamps</li>
+                    <li><strong>Balance Validation:</strong> Ensures withdrawals don't exceed available balance</li>
+                    <li><strong>Input Validation:</strong> Comprehensive validation for all monetary inputs</li>
+                    <li><strong>Menu System:</strong> User-friendly interface for banking operations</li>
+                    <li><strong>Data Persistence:</strong> Transaction history maintained throughout session</li>
+                    <li><strong>Error Handling:</strong> Robust handling of insufficient funds and invalid inputs</li>
+                </ul>
+            </div>
+            
+            <div class="screenshot">
+                <img src="screenshots/question2/qn2.png" alt="Question 2 ATM System Output">
+                <div class="screenshot-caption">Figure 2.1: ATM system showing menu options and transaction processing</div>
+            </div>
+        </div>
+        
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h3>Conclusion</h3>
+            <p>Both C programming practical questions have been successfully implemented with comprehensive functionality that goes beyond the basic requirements. The solutions demonstrate:</p>
+            <ul>
+                <li><strong>User Experience:</strong> Interactive menus and clear output formatting</li>
+                <li><strong>Data Management:</strong> Efficient storage and processing of student and banking data</li>
+                <li><strong>Error Handling:</strong> Robust input validation and error management</li>
+                <li><strong>Code Quality:</strong> Well-documented, modular, and maintainable code structure</li>
+            </ul>
+            <p>The implementations provide real-world applicable solutions that could be extended for actual academic and banking systems.</p>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB');
+    </script>
+</body>
+</html>

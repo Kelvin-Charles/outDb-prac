@@ -3,184 +3,737 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Practical - Index</title>
+    <title>Kelvin Charles Meena - Academic Portfolio</title>
     <style>
-        body { font-family: 'Times New Roman', serif; margin: 0; padding: 20px; background: #f5f7fb; position: relative; overflow-x: hidden; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none; }
-        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); border-radius: 12px; }
-        h1 { margin: 0 0 10px; color: #1e40af; font-size: 26px; }
-        p.sub { margin: 0 0 25px; color: #475569; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-        .card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; background: #ffffff; transition: box-shadow .2s ease, transform .2s ease; }
-        .card:hover { box-shadow: 0 8px 22px rgba(2,6,23,0.08); transform: translateY(-2px); }
-        .title { font-weight: 700; color: #0f172a; margin-bottom: 8px; font-size: 16px; }
-        .links { display: flex; flex-direction: column; gap: 8px; }
-        a { color: #1d4ed8; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .section { margin-top: 28px; }
-        .footer { margin-top: 24px; color: #64748b; font-size: 12px; text-align: center; }
-        .details { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; padding: 16px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; margin-bottom: 20px; }
-        .detail { display: flex; gap: 8px; align-items: baseline; }
-        .label { color: #1e40af; font-weight: 700; min-width: 120px; }
-        .value { color: #0f172a; }
-        /* Modal styles */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); display: none; align-items: center; justify-content: center; z-index: 1000; }
-        .modal { position: relative; background: #0b1220; padding: 12px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); max-width: 98vw; max-height: 95vh; display: flex; flex-direction: column; gap: 8px; }
-        .modal img { max-width: 96vw; max-height: 88vh; border-radius: 8px; display: block; -webkit-user-drag: none; user-drag: none; }
-        .modal-header { display: flex; align-items: center; justify-content: space-between; color: #e2e8f0; }
-        .modal-title { font-size: 14px; font-weight: 700; }
-        .modal-close { background: #1f2937; color: #e5e7eb; border: 1px solid #374151; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
-        .modal-close:hover { background: #374151; }
-        /* Watermark overlay inside modal */
-        .modal::after { content: 'UG2024-5-150'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); color: rgba(226,232,240,0.22); font-size: 8.5vmin; font-weight: 900; letter-spacing: 2px; pointer-events: none; user-select: none; white-space: nowrap; }
-        /* Animated background */
-        .bg-anim { position: fixed; inset: -20vh -20vw; z-index: -1; opacity: 0.35; filter: blur(60px) saturate(110%); pointer-events: none; }
-        .bg-anim:before, .bg-anim:after { content: ""; position: absolute; width: 120vmax; height: 120vmax; border-radius: 50%; }
-        .bg-anim:before { background: radial-gradient(closest-side, #60a5fa, transparent 70%); top: -10%; left: -15%; animation: float1 28s ease-in-out infinite alternate; }
-        .bg-anim:after  { background: radial-gradient(closest-side, #a78bfa, transparent 70%); bottom: -15%; right: -10%; animation: float2 32s ease-in-out infinite alternate; }
-        @keyframes float1 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6%, -4%, 0) scale(1.05); } 100% { transform: translate3d(10%, 6%, 0) scale(1.1); } }
-        @keyframes float2 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-8%, 4%, 0) scale(1.08); } 100% { transform: translate3d(-12%, -6%, 0) scale(1.12); } }
-        /* Prevent image dragging on all images */
-        img { -webkit-user-drag: none; user-drag: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-accent: #f1f5f9;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .header .subtitle {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .student-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .student-badge .reg-number {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item:hover {
+            color: var(--primary-color);
+            background: var(--bg-accent);
+        }
+        
+        /* Main Content */
+        .main {
+            padding: 4rem 0;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .card {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-features li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .card-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .card-link:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .status-completed {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-in-progress {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            color: #9ca3af;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-content {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Copy Protection */
+        .link-card h3, .link-card p {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
-    <div class="bg-anim"></div>
-    <div class="container">
-        <h1>Open University of Tanzania - Database Practical</h1>
-        <p class="sub">Quick links to all tasks, reports, and full screenshots.</p>
-
-        <div class="details">
-            <div class="detail"><span class="label">Student Name:</span><span class="value">Kelvin Charles Meena</span></div>
-            <div class="detail"><span class="label">Registration No.:</span><span class="value">UG2024-5-150</span></div>
-            <div class="detail"><span class="label">Course Code:</span><span class="value">OIT 138</span></div>
-            <div class="detail"><span class="label">Subject:</span><span class="value">Database Concepts & Design</span></div>
-            <div class="detail"><span class="label">Programme:</span><span class="value">B.Sc. ICT</span></div>
-            <div class="detail"><span class="label">Institution:</span><span class="value">Open University of Tanzania (OUT)</span></div>
-        </div>
-
-        <div class="section">
-            <h2 style="color:#334155; font-size:18px; margin:0 0 12px;">Reports</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="title">Lab 01 - Task 01 Report</div>
-                    <div class="links">
-                        <a href="lab_01_report.html" draggable="false">Open Report</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Lab 02 - Task 02 Report</div>
-                    <div class="links">
-                        <a href="lab_02_report.html" draggable="false">Open Report</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Lab 03 - Task 03 Report</div>
-                    <div class="links">
-                        <a href="lab_03_report.html" draggable="false">Open Report</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Complete Practical Report</div>
-                    <div class="links">
-                        <a href="complete_practical_report.html" draggable="false">Open Report</a>
-                    </div>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Kelvin Charles Meena</h1>
+                <p class="subtitle">Information & Communication Technology Student</p>
+                <div class="student-badge">
+                    <span class="reg-number">UG2024-5-150</span>
                 </div>
             </div>
         </div>
-
-        <div class="section">
-            <h2 style="color:#334155; font-size:18px; margin:0 0 12px;">Full Screenshots</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="title">Task 01 - Full</div>
-                    <div class="links">
-                        <a href="screenshots/task1 full.png" class="preview-link" data-title="Task 01 - Full Screenshot" draggable="false">Open Image</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Task 02 - Full</div>
-                    <div class="links">
-                        <a href="screenshots/task2 full.png" class="preview-link" data-title="Task 02 - Full Screenshot" draggable="false">Open Image</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="title">Task 03 - Full</div>
-                    <div class="links">
-                        <a href="screenshots/task3 full.png" class="preview-link" data-title="Task 03 - Full Screenshot" draggable="false">Open Image</a>
-                    </div>
-                </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#programming" class="nav-item">Programming</a>
+                <a href="#information-systems" class="nav-item">Information Systems</a>
+                <a href="#database" class="nav-item">Database</a>
+                <a href="#about" class="nav-item">About</a>
             </div>
         </div>
-
-        <div class="footer">
-            Open University of Tanzania · Database Concepts & Design · OIT 138
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Programming Section -->
+            <section id="programming" class="section">
+                <h2 class="section-title">Programming & Development</h2>
+                <p class="section-subtitle">C Programming practical implementations and software development projects</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">💻</div>
+                            <h3 class="card-title">C Programming Practical</h3>
+                        </div>
+                        <p class="card-description">
+                            Comprehensive C programming practical report covering advanced data structures, 
+                            input validation, and interactive menu systems for academic and banking applications.
+                        </p>
+                        <ul class="card-features">
+                            <li>Student Marks Analysis System</li>
+                            <li>Bank ATM Simulation</li>
+                            <li>Advanced Data Structures</li>
+                            <li>Input Validation & Error Handling</li>
+                            <li>Interactive Menu Systems</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="C_Programming_Practical_Report.html" class="card-link">
+                                View Report
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Information Systems Section -->
+            <section id="information-systems" class="section">
+                <h2 class="section-title">Information Systems</h2>
+                <p class="section-subtitle">Web development projects and network topology design</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🌐</div>
+                            <h3 class="card-title">Web Development Project</h3>
+                        </div>
+                        <p class="card-description">
+                            Complete farming education website for Kilosa farmers featuring responsive design, 
+                            Swahili translations, and comprehensive agricultural guidance.
+                        </p>
+                        <ul class="card-features">
+                            <li>4-Page Responsive Website</li>
+                            <li>Swahili Language Support</li>
+                            <li>Farming Techniques & Calendar</li>
+                            <li>Modern UI/UX Design</li>
+                            <li>Mobile-First Approach</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="Information System/index.html" class="card-link">
+                                View Project
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🔧</div>
+                            <h3 class="card-title">Network Topology Design</h3>
+                        </div>
+                        <p class="card-description">
+                            Small office network design with VLAN implementation, Packet Tracer simulation, 
+                            and comprehensive network analysis for 4-department organization.
+                        </p>
+                        <ul class="card-features">
+                            <li>VLAN Segmentation</li>
+                            <li>Packet Tracer Implementation</li>
+                            <li>Inter-VLAN Routing</li>
+                            <li>Security Configuration</li>
+                            <li>Performance Analysis</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="Information System/prac2/Network_Topology_Report.html" class="card-link">
+                                View Report
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Database Section -->
+            <section id="database" class="section">
+                <h2 class="section-title">Database Management</h2>
+                <p class="section-subtitle">Database design, SQL implementation, and practical applications</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🗄️</div>
+                            <h3 class="card-title">Database Practical</h3>
+                        </div>
+                        <p class="card-description">
+                            Comprehensive database practical covering SQL queries, database design principles, 
+                            and implementation with detailed documentation and screenshots.
+                        </p>
+                        <ul class="card-features">
+                            <li>SQL Query Implementation</li>
+                            <li>Database Design & Modeling</li>
+                            <li>Lab Task Documentation</li>
+                            <li>Complete Screenshots</li>
+                            <li>Practical Applications</li>
+                        </ul>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <a href="db_assignment/index.html" class="card-link">
+                                View Project
+                                <span>→</span>
+                            </a>
+                            <span class="status-badge status-completed">Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2 class="section-title">About</h2>
+                <p class="section-subtitle">Academic background and professional development</p>
+                
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">🎓</div>
+                            <h3 class="card-title">Academic Profile</h3>
+                        </div>
+                        <p class="card-description">
+                            Dedicated Information and Communication Technology student at the Open University of Tanzania, 
+                            focusing on practical applications and real-world problem solving.
+                        </p>
+                        <ul class="card-features">
+                            <li>Bachelor of Science in ICT</li>
+                            <li>Open University of Tanzania</li>
+                            <li>Registration: UG2024-5-150</li>
+                            <li>Active Student Status</li>
+                            <li>Practical-Focused Learning</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-icon">💼</div>
+                            <h3 class="card-title">Skills & Expertise</h3>
+                        </div>
+                        <p class="card-description">
+                            Developed comprehensive skills in programming, web development, database management, 
+                            and network design through hands-on practical projects.
+                        </p>
+                        <ul class="card-features">
+                            <li>C Programming</li>
+                            <li>Web Development (HTML, CSS, JS)</li>
+                            <li>Database Design & SQL</li>
+                            <li>Network Topology Design</li>
+                            <li>Project Documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
-
-    <!-- Modal Preview -->
-    <div id="lightbox" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="modal">
-            <div class="modal-header">
-                <div id="modal-title" class="modal-title">Preview</div>
-                <button id="modal-close" class="modal-close" type="button">Close</button>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Education</h3>
+                    <p>Bachelor of Science in Information and Communication Technology at the Open University of Tanzania</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Focus Areas</h3>
+                    <p>Programming, Web Development, Database Management, and Network Design</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Registration: UG2024-5-150<br>Open University of Tanzania</p>
+                </div>
             </div>
-            <img id="modal-image" src="" alt="Screenshot Preview" draggable="false">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kelvin Charles Meena. Professional Academic Portfolio.</p>
+            </div>
         </div>
-    </div>
-
+    </footer>
+    
     <script>
-        (function() {
-            const overlay = document.getElementById('lightbox');
-            const img = document.getElementById('modal-image');
-            const title = document.getElementById('modal-title');
-            const closeBtn = document.getElementById('modal-close');
-
-            function openModal(src, caption) {
-                img.src = src;
-                title.textContent = caption || 'Preview';
-                overlay.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-
-            function closeModal() {
-                overlay.style.display = 'none';
-                img.src = '';
-                document.body.style.overflow = '';
-            }
-
-            document.querySelectorAll('.preview-link').forEach(a => {
-                a.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const href = this.getAttribute('href');
-                    const caption = this.getAttribute('data-title');
-                    openModal(href, caption);
-                });
-            });
-
-            closeBtn.addEventListener('click', closeModal);
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay) closeModal();
-            });
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeModal();
-            });
-        })();
-    </script>
-    <script>
-        // Global security measures: disable context menu, copy/cut/paste, drag, and selection
-        document.addEventListener('contextmenu', function(e){ e.preventDefault(); }, { passive: false, capture: true });
-        ['copy','cut','paste','dragstart','selectstart'].forEach(function(evt){
-            document.addEventListener(evt, function(e){ e.preventDefault(); }, { passive: false, capture: true });
-        });
-        // Block common keyboard shortcuts for copy/cut
-        document.addEventListener('keydown', function(e){
-            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x')) {
+        // Copy Protection JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
-            }
-        }, { capture: true });
-        // Ensure all images and links are not draggable
-        document.querySelectorAll('img, a').forEach(function(el){ el.setAttribute('draggable','false'); });
+                return false;
+            });
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // Disable F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+I (Developer Tools)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+S (Save Page)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+A (Select All)
+                if (e.ctrlKey && e.keyCode === 65) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+C (Copy)
+                if (e.ctrlKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+V (Paste)
+                if (e.ctrlKey && e.keyCode === 86) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+X (Cut)
+                if (e.ctrlKey && e.keyCode === 88) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+P (Print)
+                if (e.ctrlKey && e.keyCode === 80) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable image saving
+            document.addEventListener('drag', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable print screen (basic protection)
+            document.addEventListener('keyup', function(e) {
+                if (e.keyCode === 44) { // Print Screen key
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Clear clipboard periodically
+            setInterval(function() {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText('').catch(function() {
+                        // Ignore errors
+                    });
+                }
+            }, 1000);
+            
+            // Disable developer tools detection
+            let devtools = {open: false, orientation: null};
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-size:24px;color:red;">Access Denied - Developer Tools Detected</div>';
+                    }
+                }
+            }, 500);
+            
+            // Disable console
+            console.clear();
+            console.log = function() {};
+            console.warn = function() {};
+            console.error = function() {};
+            console.info = function() {};
+            console.debug = function() {};
+            
+            // Disable alert and confirm
+            window.alert = function() {};
+            window.confirm = function() { return false; };
+            window.prompt = function() { return null; };
+        });
     </script>
 </body>
 </html>
-

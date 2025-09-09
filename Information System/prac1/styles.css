@@ -1,0 +1,355 @@
+/* Simple, readable styles for Kilosa farmers website */
+:root {
+  --green: #2e7d32;
+  --light-green: #e8f5e9;
+  --brown: #6d4c41;
+  --text: #263238;
+  --muted: #607d8b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.7;
+  font-size: 16px;
+  color: var(--text);
+  background: #ffffff;
+}
+
+header {
+  background: linear-gradient(135deg, var(--green) 0%, #43a047 50%, #66bb6a 100%);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.site-title {
+  margin: 0;
+  padding: 18px 0 10px;
+  font-size: 1.6rem;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0 18px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+nav a:hover, nav a[aria-current="page"] {
+  background: rgba(255,255,255,0.18);
+  transform: translateY(-1px);
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--light-green) 0%, #f1f8e9 100%);
+  border-bottom: 1px solid #d6e9d7;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  pointer-events: none;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 28px 0;
+}
+
+.hero img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 1;
+}
+
+main {
+  padding: 28px 0 40px;
+}
+
+section + section {
+  margin-top: 28px;
+}
+
+h2 {
+  color: var(--green);
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin: 10px 0 6px;
+  font-size: 1.15rem;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), #43a047);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  border-color: #dcdcdc;
+}
+
+.note {
+  background: #fffde7;
+  border-left: 4px solid #f9a825;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.lead {
+  font-size: 1.05rem;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--green);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  background: #1b5e20;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+}
+
+ul {
+  padding-left: 18px;
+  margin: 8px 0 0;
+}
+
+footer {
+  border-top: 1px solid #eceff1;
+  color: var(--muted);
+  font-size: 0.95rem;
+  padding: 16px 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.92rem;
+}
+
+/* Content link accents */
+main a {
+  color: #1565c0;
+  text-decoration: none;
+}
+
+main a:hover {
+  text-decoration: underline;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 6px;
+}
+
+thead th {
+  text-align: left;
+  background: #f5f7f8;
+}
+
+th, td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+}
+
+tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .site-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  nav a {
+    padding: 6px 8px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Icon styles */
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Stats section */
+.stats {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 40px 0;
+  margin: 40px 0;
+  border-radius: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 20px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Testimonials */
+.testimonial {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border-left: 4px solid var(--green);
+  margin: 15px 0;
+}
+
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.testimonial-author {
+  font-weight: 600;
+  color: var(--green);
+  font-size: 0.9rem;
+}
+
+/* Hero text styling */
+.hero h2 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: var(--green);
+}
+
+.hero .lead {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+

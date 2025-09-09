@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information Systems - Practical Reports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .student-info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
+        
+        .student-info h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .info-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #ecf0f1;
+        }
+        
+        .practical-section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .practical-title {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .practical-description {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 25px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .link-card:hover::before {
+            left: 100%;
+        }
+        
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: #3498db;
+        }
+        
+        .link-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .link-card p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .link-card .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status.completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .footer {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .footer p {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .footer .date {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .practical-title {
+                font-size: 1.5em;
+            }
+            
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .circle-1 {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .circle-3 {
+            width: 40px;
+            height: 40px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        /* Copy Protection Styles */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Allow text selection only in specific areas if needed */
+        .link-card h3, .link-card p {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Disable image dragging */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Disable text highlighting */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Protection overlay */
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="floating-circle circle-1"></div>
+        <div class="floating-circle circle-2"></div>
+        <div class="floating-circle circle-3"></div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📚 Information Systems</h1>
+            <p class="subtitle">Practical Reports & Assignments</p>
+            
+            <div class="student-info">
+                <h3>👨‍🎓 Student Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Name:</strong>
+                        <span>Kelvin Charles Meena</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Registration:</strong>
+                        <span>UG2024-5-150</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Course:</strong>
+                        <span>Information Systems</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Date:</strong>
+                        <span id="current-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="practical-section">
+            <h2 class="practical-title">🌐 Practical 1: Web Development</h2>
+            <p class="practical-description">Farming Education Website for Kilosa Farmers - HTML, CSS, and Responsive Design</p>
+            
+            <div class="links-grid">
+                <a href="prac1/index.html" class="link-card">
+                    <span class="icon">🏠</span>
+                    <h3>Home Page</h3>
+                    <p>Main landing page with hero section, statistics, farmer testimonials, and featured crops. Includes Swahili translations for better accessibility.</p>
+                    <span class="status completed">Completed</span>
+                </a>
+                
+                <a href="prac1/techniques.html" class="link-card">
+                    <span class="icon">🌱</span>
+                    <h3>Farming Techniques</h3>
+                    <p>Detailed guidance on soil preparation, planting & spacing, water management, pest control, and harvest & storage. Complete with Swahili translations.</p>
+                    <span class="status completed">Completed</span>
+                </a>
+                
+                <a href="prac1/farming.html" class="link-card">
+                    <span class="icon">📅</span>
+                    <h3>Crops & Calendars</h3>
+                    <p>Seasonal farming calendar, crop-specific guidelines for maize, beans, and tomatoes. Pre-season checklist and timing recommendations.</p>
+                    <span class="status completed">Completed</span>
+                </a>
+                
+                <a href="prac1/news.html" class="link-card">
+                    <span class="icon">📰</span>
+                    <h3>News & Resources</h3>
+                    <p>Seasonal tips, latest updates, expert resources, and local support information. Links to FAO guides and local Kilosa contacts.</p>
+                    <span class="status completed">Completed</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="practical-section">
+            <h2 class="practical-title">🔧 Practical 2: Network Topology</h2>
+            <p class="practical-description">Small Office Network Design with VLAN Implementation - Packet Tracer Simulation</p>
+            
+            <div class="links-grid">
+                <a href="prac2/Network_Topology_Report.html" class="link-card">
+                    <span class="icon">🌐</span>
+                    <h3>Network Topology Report</h3>
+                    <p>Comprehensive report on designing and implementing a small office network with VLAN segmentation for 4 departments (Sales, Marketing, Finance, HR).</p>
+                    <span class="status completed">Completed</span>
+                </a>
+                
+                <a href="prac2/network topology.png" class="link-card">
+                    <span class="icon">📊</span>
+                    <h3>Network Diagram</h3>
+                    <p>Packet Tracer network topology diagram showing the complete network design with VLAN implementation and device connections.</p>
+                    <span class="status completed">Completed</span>
+                </a>
+                
+                <a href="prac2/network topology.pdf" class="link-card">
+                    <span class="icon">📄</span>
+                    <h3>Network Diagram (PDF)</h3>
+                    <p>PDF version of the network topology diagram for easy printing and documentation purposes.</p>
+                    <span class="status completed">Completed</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Open University of Tanzania</strong></p>
+            <p>Bachelor of Science in Information and Communication Technology</p>
+            <p class="date">Generated on: <span id="footer-date"></span></p>
+        </div>
+    </div>
+    
+    <script>
+        // Set current date
+        const currentDate = new Date().toLocaleDateString('en-GB');
+        document.getElementById('current-date').textContent = currentDate;
+        document.getElementById('footer-date').textContent = currentDate;
+        
+        // Copy Protection JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // Disable F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+I (Developer Tools)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+S (Save Page)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+A (Select All)
+                if (e.ctrlKey && e.keyCode === 65) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+C (Copy)
+                if (e.ctrlKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+V (Paste)
+                if (e.ctrlKey && e.keyCode === 86) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+X (Cut)
+                if (e.ctrlKey && e.keyCode === 88) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+P (Print)
+                if (e.ctrlKey && e.keyCode === 80) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable image saving
+            document.addEventListener('drag', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable print screen (basic protection)
+            document.addEventListener('keyup', function(e) {
+                if (e.keyCode === 44) { // Print Screen key
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Clear clipboard periodically
+            setInterval(function() {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText('').catch(function() {
+                        // Ignore errors
+                    });
+                }
+            }, 1000);
+            
+            // Disable developer tools detection
+            let devtools = {open: false, orientation: null};
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-size:24px;color:red;">Access Denied - Developer Tools Detected</div>';
+                    }
+                }
+            }, 500);
+            
+            // Disable console
+            console.clear();
+            console.log = function() {};
+            console.warn = function() {};
+            console.error = function() {};
+            console.info = function() {};
+            console.debug = function() {};
+            
+            // Disable alert and confirm
+            window.alert = function() {};
+            window.confirm = function() { return false; };
+            window.prompt = function() { return null; };
+        });
+    </script>
+</body>
+</html>
