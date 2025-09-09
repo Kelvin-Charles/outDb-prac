@@ -313,6 +313,11 @@
             background: transparent;
         }
 
+        /* Block printing */
+        @media print {
+            body { display: none !important; }
+        }
+
         /* Design Gallery */
         .design-gallery {
             display: grid;

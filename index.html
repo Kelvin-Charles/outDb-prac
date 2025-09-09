@@ -454,6 +454,11 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        /* Block printing */
+        @media print {
+            body { display: none !important; }
+        }
     </style>
 </head>
 <body>
