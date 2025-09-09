@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OIT 137 - Data Communications & Networking - Complete Practical 1 & 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Cover Page Styles */
+        .cover-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            page-break-after: always;
+            position: relative;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .university-header {
+            margin-bottom: 60px;
+        }
+
+        .university-logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #1e3c72;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .university-name {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        .course-info {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .course-info h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .info-table {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #e0e7ff;
+            font-size: 1.1em;
+        }
+
+        .info-value {
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .submission-date {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Navigation Styles */
+        .nav-container {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .nav-menu {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .nav-item {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Content Styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        .assignment-section {
+            background: white;
+            margin: 30px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .assignment-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .assignment-header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .assignment-content {
+            padding: 30px;
+        }
+
+        /* Additional Styles for Assignment Content */
+        .student-info {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .student-info h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .info-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #28a745;
+        }
+
+        .section h2 {
+            color: #28a745;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #28a745;
+        }
+
+        .section h3 {
+            color: #495057;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .section h4 {
+            color: #6c757d;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+
+        .osi-layer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #17a2b8;
+        }
+
+        .osi-layer h4 {
+            color: #17a2b8;
+            margin-bottom: 10px;
+        }
+
+        .protocol-details {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .findings {
+            background-color: #d4edda;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .findings h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .problem-analysis {
+            background-color: #f8d7da;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #dc3545;
+        }
+
+        .problem-analysis h4 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+
+        .solution-box {
+            background-color: #d4edda;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #28a745;
+        }
+
+        .solution-box h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .conclusion {
+            background-color: #cce5ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #007bff;
+        }
+
+        .conclusion h3 {
+            color: #004085;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .info {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .danger {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .screenshot {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            border: 2px dashed #dee2e6;
+            position: relative;
+        }
+
+        .screenshot img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            position: relative;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 48px;
+            font-weight: bold;
+            color: rgba(30, 64, 175, 0.15);
+            z-index: 10;
+            pointer-events: none;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            white-space: nowrap;
+            user-select: none;
+        }
+        
+        .watermark-small {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(30, 64, 175, 0.4);
+            background: rgba(255,255,255,0.8);
+            padding: 5px 10px;
+            border-radius: 3px;
+            z-index: 10;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .screenshot-caption {
+            font-style: italic;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        /* Copy Protection Styles */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Disable text highlighting */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Protection overlay */
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <div class="cover-page">
+        <div class="university-header">
+            <div class="university-logo">
+                <img src="logo/out.avif" alt="Open University of Tanzania Logo" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <h1 class="university-name">OPEN UNIVERSITY OF TANZANIA</h1>
+        </div>
+
+        <div class="course-info">
+            <h2>COURSE INFORMATION</h2>
+            <div class="info-table">
+                <div class="info-label">COURSE NAME:</div>
+                <div class="info-value">Bachelor of Science in Information and Communication Technology</div>
+                
+                <div class="info-label">WORK:</div>
+                <div class="info-value">Practical 1 & 2</div>
+                
+                <div class="info-label">SUBJECT NAME:</div>
+                <div class="info-value">Data Communications & Networking</div>
+                
+                <div class="info-label">COURSE CODE:</div>
+                <div class="info-value">OIT 137</div>
+                
+                <div class="info-label">STUDENT NAME:</div>
+                <div class="info-value">Kelvin Charles Meena</div>
+                
+                <div class="info-label">REGISTRATION NUMBER:</div>
+                <div class="info-value">UG2024-5-150</div>
+            </div>
+        </div>
+
+        <div class="submission-date">
+            Date of Submission: 10/09/2025
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-container">
+        <div class="nav-menu">
+            <a href="#assignment1" class="nav-item">📊 Question 1: Packet Analysis</a>
+            <a href="#assignment2" class="nav-item">🔧 Question 2: Network Troubleshooting</a>
+            <a href="#summary" class="nav-item">📋 Assignment Summary</a>
+        </div>
+    </div>
+
+    <!-- Assignment 1: Packet Analysis -->
+    <div id="assignment1" class="assignment-section">
+        <div class="assignment-header">
+            <h1>📊 Question 1: Packet Analysis Using Wireshark</h1>
+            <p>OSI Layer Protocol Analysis and Network Communication Study</p>
+        </div>
+        <div class="assignment-content">
+            <!-- Student Information Section -->
+            <div class="student-info">
+                <h3>📋 Student Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Registration Number:</strong>
+                        UG2024-5-150
+                    </div>
+                    <div class="info-item">
+                        <strong>Student Name:</strong>
+                        Kelvin Charles Meena
+                    </div>
+                    <div class="info-item">
+                        <strong>Date:</strong>
+                        September 9, 2024
+                    </div>
+                    <div class="info-item">
+                        <strong>Tool Used:</strong>
+                        Wireshark on Kali Linux
+                    </div>
+                </div>
+            </div>
+
+            <!-- Capture Summary Section -->
+            <div class="section">
+                <h2>📊 Capture Summary</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Network Activity:</strong>
+                        Visiting matokeochap.com (HTTPS)
+                    </div>
+                    <div class="info-item">
+                        <strong>Interface Used:</strong>
+                        eth0 (Ethernet - VirtualBox NAT Network)
+                    </div>
+                    <div class="info-item">
+                        <strong>Protocols Observed:</strong>
+                        Ethernet, IPv4, TCP, TLS, HTTP
+                    </div>
+                    <div class="info-item">
+                        <strong>Security:</strong>
+                        TLS 1.2 with AES-256-GCM
+                    </div>
+                </div>
+            </div>
+
+            <!-- OSI Layer Analysis Section -->
+            <div class="section">
+                <h2>🔍 OSI Layer Protocol Analysis</h2>
+                
+                <div class="osi-layer">
+                    <h4>Layer 1 (Physical Layer)</h4>
+                    <p><strong>What I found:</strong> I cannot see this layer directly in Wireshark</p>
+                    <p><strong>How I know it's there:</strong> My Kali VM uses eth0 interface connected through VirtualBox NAT Network</p>
+                    <div class="protocol-details">
+                        <strong>My Network Setup:</strong>
+                        <ul>
+                            <li>I am using Kali Linux in a virtual machine</li>
+                            <li>My network interface is called eth0</li>
+                            <li>I am using VirtualBox NAT Network to connect to internet</li>
+                            <li>This creates a virtual network connection over my host computer</li>
+                            <li>I am using Oracle VirtualBox software</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="osi-layer">
+                    <h4>Layer 2 (Data Link Layer)</h4>
+                    <p><strong>What I found:</strong> <span class="highlight">Ethernet II</span> protocol</p>
+                    <p><strong>Proof:</strong> I can see this in my screenshot analysis</p>
+                    
+                    <div class="screenshot">
+                        <div style="position: relative; display: inline-block;">
+                            <img src="qn1/screenshots/osi shot1.png" alt="Layer 2 and 3 Analysis">
+                            <div class="watermark">KELVIN CHARLES MEENA</div>
+                            <div class="watermark-small">UG2024-5-150</div>
+                        </div>
+                        <div class="screenshot-caption">Figure 1: Layer 2 (Ethernet) and Layer 3 (IPv4) Protocol Analysis</div>
+                    </div>
+                    
+                    <div class="protocol-details">
+                        <strong>Important Information I Found:</strong>
+                        <ul>
+                            <li>Source MAC Address: <span class="info">52:55:0a:00:02:02</span> (where packet came from)</li>
+                            <li>Destination MAC Address: <span class="info">08:00:27:d1:f8:5d</span> (where packet is going)</li>
+                            <li>Type: <span class="info">0x0800 (IPv4)</span> (tells us this is an IP packet)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="osi-layer">
+                    <h4>Layer 3 (Network Layer)</h4>
+                    <p><strong>What I found:</strong> <span class="highlight">IPv4</span> protocol</p>
+                    <p><strong>Proof:</strong> I can see this in my packet analysis</p>
+                    <div class="protocol-details">
+                        <strong>Important Information I Found:</strong>
+                        <ul>
+                            <li>Source IP Address: <span class="info">76.76.21.21</span> (matokeochap.com server)</li>
+                            <li>Destination IP Address: <span class="info">10.0.2.15</span> (my Kali VM)</li>
+                            <li>TTL: <span class="info">64</span> (how many hops this packet can make)</li>
+                            <li>Protocol: <span class="info">TCP</span> (what type of data this is)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="osi-layer">
+                    <h4>Layer 4 (Transport Layer)</h4>
+                    <p><strong>What I found:</strong> <span class="highlight">TCP</span> protocol</p>
+                    <p><strong>Proof:</strong> I can see this in my TCP analysis</p>
+                    
+                    <div class="screenshot">
+                        <div style="position: relative; display: inline-block;">
+                            <img src="qn1/screenshots/osi shot2.png" alt="Layer 4 TCP Analysis">
+                            <div class="watermark">KELVIN CHARLES MEENA</div>
+                            <div class="watermark-small">UG2024-5-150</div>
+                        </div>
+                        <div class="screenshot-caption">Figure 2: Layer 4 (TCP) Protocol Analysis</div>
+                    </div>
+                    
+                    <div class="protocol-details">
+                        <strong>Important Information I Found:</strong>
+                        <ul>
+                            <li>Source Port: <span class="info">443 (HTTPS)</span> (secure website port)</li>
+                            <li>Destination Port: <span class="info">37234</span> (my computer's port)</li>
+                            <li>Sequence Number: <span class="info">1</span> (packet order number)</li>
+                            <li>Flags: <span class="info">ACK</span> (acknowledgment that data was received)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="osi-layer">
+                    <h4>Layer 5 (Session Layer)</h4>
+                    <p><strong>What I found:</strong> <span class="highlight">TLS</span> protocol</p>
+                    <p><strong>Proof:</strong> I can see this in my TLS analysis</p>
+                    
+                    <div class="screenshot">
+                        <div style="position: relative; display: inline-block;">
+                            <img src="qn1/screenshots/osi shot3.png" alt="Layer 5-6 TLS Analysis">
+                            <div class="watermark">KELVIN CHARLES MEENA</div>
+                            <div class="watermark-small">UG2024-5-150</div>
+                        </div>
+                        <div class="screenshot-caption">Figure 3: Layer 5-6 (TLS) Security Protocol Analysis</div>
+                    </div>
+                    
+                    <div class="protocol-details">
+                        <strong>Important Information I Found:</strong>
+                        <ul>
+                            <li>TLS Version: <span class="success">1.2</span> (security protocol version)</li>
+                            <li>Cipher Suite: <span class="success">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</span> (how data is encrypted)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="osi-layer">
+                    <h4>Layer 6 (Presentation Layer)</h4>
+                    <p><strong>What I found:</strong> <span class="highlight">TLS (Encryption/Compression)</span></p>
+                    <p><strong>Proof:</strong> I can see this in my encryption analysis</p>
+                    <div class="protocol-details">
+                        <strong>Important Information I Found:</strong>
+                        <ul>
+                            <li>Encryption Method: <span class="success">AES-256-GCM</span> (very strong encryption)</li>
+                            <li>Key Exchange: <span class="success">ECDHE_RSA</span> (how encryption keys are shared)</li>
+                            <li>Hash Function: <span class="success">SHA384</span> (checks data integrity)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="osi-layer">
+                    <h4>Layer 7 (Application Layer)</h4>
+                    <p><strong>What I found:</strong> <span class="highlight">HTTP/HTTPS</span> protocols</p>
+                    <p><strong>Proof:</strong> I can see this in my protocol hierarchy analysis</p>
+                    <div class="protocol-details">
+                        <strong>Important Information I Found:</strong>
+                        <ul>
+                            <li>HTTP over TLS (HTTPS) - this means the website is secure</li>
+                            <li>Secure web communication - my data is protected</li>
+                            <li>Application data encryption - the website content is encrypted</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TCP Handshake Analysis -->
+            <div class="section">
+                <h2>🔒 How Layer 4 Keeps Data Safe and in Order</h2>
+                
+                <div class="findings">
+                    <h4>TCP Handshake Process (How Connection Starts)</h4>
+                    <p><strong>Proof:</strong> I can see this in my TCP handshake analysis</p>
+                    
+                    <div class="screenshot">
+                        <div style="position: relative; display: inline-block;">
+                            <img src="qn1/screenshots/tcp_handshake.png" alt="TCP 3-Way Handshake">
+                            <div class="watermark">KELVIN CHARLES MEENA</div>
+                            <div class="watermark-small">UG2024-5-150</div>
+                        </div>
+                        <div class="screenshot-caption">Figure 4: How My Computer and matokeochap.com Server Start Talking</div>
+                    </div>
+                    
+                    <ol>
+                        <li><strong>SYN:</strong> Frame 1 (My computer says "Hello matokeochap.com, can we talk?")</li>
+                        <li><strong>SYN-ACK:</strong> Frame 2 (matokeochap.com server says "Yes, let's talk!")</li>
+                        <li><strong>ACK:</strong> Frame 3 (My computer says "Great, let's start!")</li>
+                    </ol>
+                </div>
+
+                <div class="findings">
+                    <h4>How TCP Keeps Data Safe</h4>
+                    <ul>
+                        <li><strong>Sequence Numbers:</strong> Like page numbers in a book - keeps packets in order</li>
+                        <li><strong>Acknowledgment Numbers:</strong> Like saying "I got your message" - confirms packets arrived</li>
+                        <li><strong>Checksums:</strong> Like a receipt - checks if data was damaged during travel</li>
+                        <li><strong>Window Size:</strong> Controls how much data can be sent at once</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Protocol Hierarchy -->
+            <div class="section">
+                <h2>📈 What Protocols I Found in My Capture</h2>
+                
+                <div class="screenshot">
+                    <div style="position: relative; display: inline-block;">
+                        <img src="qn1/screenshots/protocol_hierarchy.png" alt="Protocol Hierarchy Statistics">
+                        <div class="watermark">KELVIN CHARLES MEENA</div>
+                        <div class="watermark-small">UG2024-5-150</div>
+                    </div>
+                    <div class="screenshot-caption">Figure 5: All the Protocols I Found in My Network Traffic</div>
+                </div>
+
+                <div class="findings">
+                    <h4>My Protocol Breakdown</h4>
+                    <ul>
+                        <li><strong>Ethernet:</strong> <span class="success">100%</span> (all packets use Ethernet framing)</li>
+                        <li><strong>IPv4:</strong> <span class="success">100%</span> (all packets use IP addressing)</li>
+                        <li><strong>TCP:</strong> <span class="success">100%</span> (all data uses reliable TCP transport)</li>
+                        <li><strong>TLS:</strong> <span class="success">100%</span> (all communication is encrypted)</li>
+                        <li><strong>HTTP:</strong> <span class="success">100%</span> (all traffic is web browsing)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Network Conversations -->
+            <div class="section">
+                <h2>🛣️ How Layer 3 Makes Routing Decisions</h2>
+                
+                <div class="screenshot">
+                    <div style="position: relative; display: inline-block;">
+                        <img src="qn1/screenshots/network_conversations.png" alt="Network Conversations Analysis">
+                        <div class="watermark">KELVIN CHARLES MEENA</div>
+                        <div class="watermark-small">UG2024-5-150</div>
+                    </div>
+                    <div class="screenshot-caption">Figure 6: How My Computer Talks to Different Servers</div>
+                </div>
+
+                <div class="findings">
+                    <h4>What I Found About TTL</h4>
+                    <ul>
+                        <li>TTL Value: <span class="info">64</span> (this means the packet can travel through 64 routers before it expires)</li>
+                        <li>Source IP: <span class="info">76.76.21.21</span> (this is the matokeochap.com server I was visiting)</li>
+                        <li>Destination IP: <span class="info">10.0.2.15</span> (this is my Kali VM computer)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Protocol Function Analysis -->
+            <div class="section">
+                <h2>🔧 How Each Protocol Helps in Data Communication</h2>
+                
+                <div class="protocol-details">
+                    <h4>Ethernet II (Layer 2)</h4>
+                    <p><strong>What it does:</strong> Helps packets find the right device on my local network</p>
+                    <p><strong>How it works:</strong> Uses MAC addresses like house addresses to make sure packets go to the right computer</p>
+                </div>
+
+                <div class="protocol-details">
+                    <h4>IPv4 (Layer 3)</h4>
+                    <p><strong>What it does:</strong> Helps packets travel between different networks</p>
+                    <p><strong>How it works:</strong> Uses IP addresses and TTL values to route packets from my computer to websites on the internet</p>
+                </div>
+
+                <div class="protocol-details">
+                    <h4>TCP (Layer 4)</h4>
+                    <p><strong>What it does:</strong> Makes sure data arrives safely and in the right order</p>
+                    <p><strong>How it works:</strong> Checks that all packets arrive, puts them in the right order, and fixes any errors</p>
+                </div>
+
+                <div class="protocol-details">
+                    <h4>TLS (Layers 5-6)</h4>
+                    <p><strong>What it does:</strong> Keeps my data safe and private</p>
+                    <p><strong>How it works:</strong> Encrypts my data so nobody else can read it, and checks that the website is real</p>
+                </div>
+
+                <div class="protocol-details">
+                    <h4>HTTP/HTTPS (Layer 7)</h4>
+                    <p><strong>What it does:</strong> Handles web page requests and responses</p>
+                    <p><strong>How it works:</strong> Sends my request for a web page and receives the page content securely</p>
+                </div>
+            </div>
+
+            <!-- Conclusion for Assignment 1 -->
+            <div class="conclusion">
+                <h3>🎯 What I Learned from This Analysis</h3>
+                
+                <h4>How Layer 3 Makes Routing Decisions</h4>
+                <p>I learned that routing decisions are made by looking at IP addresses and TTL values. My network shows proper routing between my local computer (10.0.2.15) and the matokeochap.com server (76.76.21.21).</p>
+
+                <h4>How Layer 4 Keeps Data Safe</h4>
+                <p>TCP made sure my data was safe by:</p>
+                <ul>
+                    <li>Doing a complete 3-way handshake to start the connection</li>
+                    <li>Using sequence and acknowledgment numbers to track all data</li>
+                    <li>Checking for errors with checksums</li>
+                    <li>Controlling how much data is sent at once</li>
+                </ul>
+
+                <h4>How My Web Browsing Works</h4>
+                <p>My captured traffic shows a complete secure web browsing session with:</p>
+                <ul>
+                    <li>Strong TLS 1.2 encryption with AES-256-GCM to keep my data private</li>
+                    <li>Reliable TCP transport that makes sure all data arrives</li>
+                    <li>Smart IP routing that finds the best path to websites</li>
+                    <li>Ethernet framing that delivers data to the right computer</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assignment 2: Network Troubleshooting -->
+    <div id="assignment2" class="assignment-section">
+        <div class="assignment-header">
+            <h1>🔧 Question 2: Network Troubleshooting Report</h1>
+            <p>Network Issues Diagnosis and Solutions Implementation</p>
+        </div>
+        <div class="assignment-content">
+            <!-- Student Information Section -->
+            <div class="student-info">
+                <h3>📋 Student Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Registration Number:</strong>
+                        UG2024-5-150
+                    </div>
+                    <div class="info-item">
+                        <strong>Student Name:</strong>
+                        Kelvin Charles Meena
+                    </div>
+                    <div class="info-item">
+                        <strong>Date:</strong>
+                        September 9, 2024
+                    </div>
+                    <div class="info-item">
+                        <strong>Tool Used:</strong>
+                        Cisco Packet Tracer
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Topology Analysis -->
+            <div class="section">
+                <h2>📊 Network Topology Analysis</h2>
+                
+                <div class="screenshot">
+                    <div style="position: relative; display: inline-block;">
+                        <img src="qn2/badNetwork.png" alt="Original Network Topology with Issues">
+                        <div class="watermark">KELVIN CHARLES MEENA</div>
+                        <div class="watermark-small">UG2024-5-150</div>
+                    </div>
+                    <div class="screenshot-caption">Figure 7: Original Network Topology Showing Problems</div>
+                </div>
+
+                <div class="findings">
+                    <h4>What I Found in My Network</h4>
+                    <p>I created a simple network topology with:</p>
+                    <ul>
+                        <li>1 Router connected to internet</li>
+                        <li>1 Switch connecting all devices</li>
+                        <li>4 Computers (PC0, PC1, PC2, PC3)</li>
+                        <li>1 Server for testing</li>
+                        <li>All devices connected to the same network</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Network Issues and Solutions -->
+            <div class="section">
+                <h2>🚨 Network Issues I Identified</h2>
+                
+                <div class="problem-analysis">
+                    <h4>Issue 1: Slow Internet Connectivity</h4>
+                    <p><strong>What I observed:</strong> When I tried to browse websites, pages took a very long time to load</p>
+                    <p><strong>Why this happens:</strong> All devices are sharing the same internet connection without any management</p>
+                </div>
+
+                <div class="problem-analysis">
+                    <h4>Issue 2: Network Bottleneck Problems</h4>
+                    <p><strong>What I observed:</strong> All devices slow down when one device uses a lot of internet</p>
+                    <p><strong>Why this happens:</strong> All data has to go through one slow connection, like cars on a narrow road</p>
+                </div>
+
+                <div class="problem-analysis">
+                    <h4>Issue 3: Single Point of Failure</h4>
+                    <p><strong>What I observed:</strong> If one device breaks, the whole network stops working</p>
+                    <p><strong>Why this happens:</strong> Only one router, one switch, or one server - no backup options</p>
+                </div>
+            </div>
+
+            <!-- Implementation Section -->
+            <div class="section">
+                <h2>🛠️ Implementation in Packet Tracer</h2>
+                
+                <div class="screenshot">
+                    <div style="position: relative; display: inline-block;">
+                        <img src="qn2/improved.png" alt="Improved Network Topology">
+                        <div class="watermark">KELVIN CHARLES MEENA</div>
+                        <div class="watermark-small">UG2024-5-150</div>
+                    </div>
+                    <div class="screenshot-caption">Figure 8: Improved Network Topology After Fixes</div>
+                </div>
+
+                <div class="findings">
+                    <h4>What I Did in Packet Tracer</h4>
+                    
+                    <h4>Step 1: Configured Router Settings</h4>
+                    <ul>
+                        <li>Set router IP address to 192.168.1.1</li>
+                        <li>Enabled DHCP service</li>
+                        <li>Configured NAT for internet access</li>
+                        <li>Set up routing table</li>
+                    </ul>
+
+                    <h4>Step 2: Configured Switch Settings</h4>
+                    <ul>
+                        <li>Created VLANs 10 and 20</li>
+                        <li>Assigned ports to appropriate VLANs</li>
+                        <li>Configured trunk ports</li>
+                        <li>Enabled spanning tree protocol</li>
+                    </ul>
+
+                    <h4>Step 3: Set Up DHCP Server</h4>
+                    <ul>
+                        <li>Configured IP pool 192.168.1.10-192.168.1.50</li>
+                        <li>Set default gateway to 192.168.1.1</li>
+                        <li>Configured DNS server addresses</li>
+                        <li>Set lease time to 24 hours</li>
+                    </ul>
+
+                    <h4>Step 4: Configured End Devices</h4>
+                    <ul>
+                        <li>Set all PCs to use DHCP</li>
+                        <li>Assigned static IP to server (192.168.1.100)</li>
+                        <li>Configured DNS settings</li>
+                        <li>Tested connectivity between devices</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Solutions Implemented -->
+            <div class="section">
+                <h2>💡 My Proposed Solutions</h2>
+                
+                <div class="solution-box">
+                    <h4>Solution 1: Fix IP Addressing and DHCP</h4>
+                    <p><strong>What I did:</strong> Set up proper IP addressing scheme</p>
+                    <ul>
+                        <li>Configure router as DHCP server</li>
+                        <li>Use IP range 192.168.1.0/24</li>
+                        <li>Assign static IPs to server and router</li>
+                        <li>Let computers get IPs automatically</li>
+                    </ul>
+                </div>
+
+                <div class="solution-box">
+                    <h4>Solution 2: Eliminate Single Points of Failure</h4>
+                    <p><strong>What I did:</strong> Add redundancy and backup systems</p>
+                    <ul>
+                        <li>Add backup router for internet connection</li>
+                        <li>Use multiple switches with redundancy</li>
+                        <li>Set up backup servers</li>
+                        <li>Install UPS (Uninterruptible Power Supply)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="conclusion">
+                <h3>🎯 What I Learned from This Exercise</h3>
+                
+                <h4>Key Lessons</h4>
+                <ul>
+                    <li><strong>Proper IP addressing is crucial:</strong> Without correct IP configuration, nothing works properly</li>
+                    <li><strong>DHCP makes life easier:</strong> Automatic IP assignment prevents conflicts and saves time</li>
+                    <li><strong>Redundancy prevents failures:</strong> Having backup connections keeps network running</li>
+                    <li><strong>Testing is important:</strong> Always test your solutions to make sure they work</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Summary Section -->
+    <div id="summary" class="assignment-section">
+        <div class="assignment-header" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+            <h1>📋 Complete Assignment Summary</h1>
+            <p>Comprehensive Overview of Both Practical Assignments</p>
+        </div>
+        <div class="assignment-content">
+            <div class="conclusion">
+                <h3>🎯 Overall Learning Outcomes</h3>
+                
+                <h4>Question 1: Packet Analysis Key Achievements</h4>
+                <ul>
+                    <li>Successfully analyzed OSI model layers 1-7 using Wireshark</li>
+                    <li>Identified and documented all major network protocols (Ethernet, IPv4, TCP, TLS, HTTP)</li>
+                    <li>Demonstrated understanding of how Layer 3 routing decisions are made</li>
+                    <li>Explained how Layer 4 TCP ensures reliable data transmission</li>
+                    <li>Captured and analyzed real network traffic from matokeochap.com</li>
+                </ul>
+
+                <h4>Question 2: Network Troubleshooting Key Achievements</h4>
+                <ul>
+                    <li>Identified critical network problems including bottlenecks and single points of failure</li>
+                    <li>Proposed comprehensive solutions for IP addressing, DHCP configuration, and network redundancy</li>
+                    <li>Implemented solutions using Cisco Packet Tracer</li>
+                    <li>Demonstrated understanding of network troubleshooting methodology</li>
+                    <li>Successfully tested and verified all implemented solutions</li>
+                </ul>
+
+                <h4>Practical Skills Demonstrated</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Tools Mastery:</strong>
+                        Wireshark, Cisco Packet Tracer, Kali Linux
+                    </div>
+                    <div class="info-item">
+                        <strong>Protocol Knowledge:</strong>
+                        Ethernet, IPv4, TCP, TLS, HTTP/HTTPS
+                    </div>
+                    <div class="info-item">
+                        <strong>Network Design:</strong>
+                        Topology planning, IP addressing, DHCP configuration
+                    </div>
+                    <div class="info-item">
+                        <strong>Problem Solving:</strong>
+                        Root cause analysis, solution implementation, testing
+                    </div>
+                </div>
+
+                <h4>Professional Development</h4>
+                <p>Through these practical assignments, I have gained valuable hands-on experience in:</p>
+                <ul>
+                    <li>Network protocol analysis and troubleshooting</li>
+                    <li>Using industry-standard tools for network analysis</li>
+                    <li>Implementing practical solutions to common network problems</li>
+                    <li>Documenting technical work professionally</li>
+                    <li>Following systematic approaches to problem-solving</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 30px; background-color: #f8f9fa; border-radius: 15px; border: 2px solid #667eea;">
+                <h3 style="color: #667eea; margin-bottom: 20px;">📁 Assignment Submission Details</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Student Name:</strong>
+                        Kelvin Charles Meena
+                    </div>
+                    <div class="info-item">
+                        <strong>Registration Number:</strong>
+                        UG2024-5-150
+                    </div>
+                    <div class="info-item">
+                        <strong>Course Code:</strong>
+                        OIT 137
+                    </div>
+                    <div class="info-item">
+                        <strong>Course Name:</strong>
+                        Data Communications & Networking
+                    </div>
+                    <div class="info-item">
+                        <strong>Assignment Type:</strong>
+                        Practical Assignment 1 (Complete)
+                    </div>
+                    <div class="info-item">
+                        <strong>Submission Date:</strong>
+                        September 9, 2025
+                    </div>
+                </div>
+                <p style="margin-top: 20px; font-style: italic; color: #6c757d;">
+                    This document contains both Question 1 (Packet Analysis) and Question 2 (Network Troubleshooting) as requested by the instructor.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Protection Overlay -->
+    <div class="protection-overlay"></div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Copy Protection JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // Disable F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+I (Developer Tools)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+S (Save Page)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+A (Select All)
+                if (e.ctrlKey && e.keyCode === 65) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+C (Copy)
+                if (e.ctrlKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+V (Paste)
+                if (e.ctrlKey && e.keyCode === 86) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+X (Cut)
+                if (e.ctrlKey && e.keyCode === 88) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Disable Ctrl+P (Print)
+                if (e.ctrlKey && e.keyCode === 80) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Disable text selection
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable drag and drop
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable image saving
+            document.addEventListener('drag', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable print screen (basic protection)
+            document.addEventListener('keyup', function(e) {
+                if (e.keyCode === 44) { // Print Screen key
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Clear clipboard periodically
+            setInterval(function() {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText('').catch(function() {
+                        // Ignore errors
+                    });
+                }
+            }, 1000);
+            
+            // Disable developer tools detection
+            let devtools = {open: false, orientation: null};
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-size:24px;color:red;">Access Denied - Developer Tools Detected</div>';
+                    }
+                }
+            }, 500);
+            
+            // Disable console
+            console.clear();
+            console.log = function() {};
+            console.warn = function() {};
+            console.error = function() {};
+            console.info = function() {};
+            console.debug = function() {};
+            
+            // Disable alert and confirm
+            window.alert = function() {};
+            window.confirm = function() { return false; };
+            window.prompt = function() { return null; };
+        });
+    </script>
+</body>
+</html>
