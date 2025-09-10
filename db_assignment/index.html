@@ -41,6 +41,43 @@
         @keyframes float2 { 0% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-8%, 4%, 0) scale(1.08); } 100% { transform: translate3d(-12%, -6%, 0) scale(1.12); } }
         /* Prevent image dragging on all images */
         img { -webkit-user-drag: none; user-drag: none; }
+        
+        /* Enhanced Print Protection */
+        @media print {
+            * {
+                display: none !important;
+                visibility: hidden !important;
+                color: transparent !important;
+                background: transparent !important;
+            }
+            body::before {
+                content: "PRINTING DISABLED - Access Denied";
+                display: block !important;
+                visibility: visible !important;
+                font-size: 32px;
+                font-weight: bold;
+                text-align: center;
+                padding: 100px 50px;
+                color: red !important;
+                background: white !important;
+                border: 5px solid red;
+                margin: 50px;
+            }
+            html, body {
+                height: 100vh !important;
+                overflow: hidden !important;
+                background: white !important;
+            }
+        }
+        
+        /* Additional print protection */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -176,6 +213,42 @@
         document.addEventListener('keydown', function(e){
             if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x')) {
                 e.preventDefault();
+            }
+            
+            // Screenshot Protection
+            // Disable Print Screen
+            if (e.keyCode === 44) {
+                e.preventDefault();
+                showBlockMessage('Screenshots are disabled.');
+                return false;
+            }
+            
+            // Disable Windows + Print Screen
+            if (e.keyCode === 44 && e.metaKey) {
+                e.preventDefault();
+                showBlockMessage('Screenshots are disabled.');
+                return false;
+            }
+            
+            // Disable Alt + Print Screen
+            if (e.keyCode === 44 && e.altKey) {
+                e.preventDefault();
+                showBlockMessage('Screenshots are disabled.');
+                return false;
+            }
+            
+            // Disable Shift + Print Screen
+            if (e.keyCode === 44 && e.shiftKey) {
+                e.preventDefault();
+                showBlockMessage('Screenshots are disabled.');
+                return false;
+            }
+            
+            // Disable Windows + Shift + S (Snipping Tool)
+            if (e.keyCode === 83 && e.metaKey && e.shiftKey) {
+                e.preventDefault();
+                showBlockMessage('Screenshots are disabled.');
+                return false;
             }
         }, { capture: true });
         // Ensure all images and links are not draggable

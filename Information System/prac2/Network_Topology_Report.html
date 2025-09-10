@@ -12,6 +12,11 @@
             padding: 20px;
             background-color: #f5f5f5;
             color: #333;
+            -webkit-context-menu: none;
+            -moz-context-menu: none;
+            context-menu: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
         }
         .container {
             max-width: 1200px;
@@ -170,13 +175,194 @@
             margin: 20px 0;
         }
         .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            margin: 15px 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            margin: 20px 0;
             overflow-x: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        .code-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+        
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88, #ff6b6b, #ffd93d);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            color: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .code-block code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+            font-size: inherit;
+        }
+        
+        /* Syntax highlighting for network commands */
+        .code-block .comment {
+            color: #6c757d;
+            font-style: italic;
+        }
+        
+        .code-block .command {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        
+        .code-block .interface {
+            color: #ffd93d;
+        }
+        
+        .code-block .ip-address {
+            color: #00d4ff;
+        }
+        
+        .code-block .vlan {
+            color: #ff6b6b;
+        }
+        
+        .code-block .number {
+            color: #ff9ff3;
+        }
+        
+        /* Interactive features for code blocks */
+        .code-block {
+            cursor: pointer;
+        }
+        
+        .code-block:hover .command {
+            text-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+        }
+        
+        .code-block:hover .interface {
+            text-shadow: 0 0 8px rgba(255, 217, 61, 0.5);
+        }
+        
+        .code-block:hover .ip-address {
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+        }
+        
+        .code-block:hover .vlan {
+            text-shadow: 0 0 8px rgba(255, 107, 107, 0.5);
+        }
+        
+        .code-block:hover .number {
+            text-shadow: 0 0 8px rgba(255, 159, 243, 0.5);
+        }
+        
+        /* Copy button for code blocks */
+        .code-block::after {
+            content: '📋 Copy';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .code-block:hover::after {
+            opacity: 1;
+        }
+        
+        .code-block.copied::after {
+            content: '✅ Copied!';
+            background: rgba(0, 255, 136, 0.2);
+            border-color: rgba(0, 255, 136, 0.5);
+        }
+        
+        /* Watermark overlay for code blocks */
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88, #ff6b6b, #ffd93d);
+            border-radius: 12px 12px 0 0;
+            z-index: 1;
+        }
+        
+        .code-block .watermark-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-25deg);
+            font-size: 48px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.15);
+            z-index: 10;
+            pointer-events: none;
+            white-space: nowrap;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+            letter-spacing: 2px;
+        }
+        
+        .code-block .watermark-small {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 3px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .code-block .access-denied {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.4);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 5;
+            pointer-events: none;
         }
         .highlight {
             background: #fff3cd;
@@ -230,6 +416,117 @@
             z-index: 9999;
             pointer-events: none;
             background: transparent;
+        }
+        
+        /* Enhanced Print Protection */
+        @media print {
+            * {
+                display: none !important;
+                visibility: hidden !important;
+                color: transparent !important;
+                background: transparent !important;
+            }
+            body::before {
+                content: "PRINTING DISABLED - Access Denied";
+                display: block !important;
+                visibility: visible !important;
+                font-size: 32px;
+                font-weight: bold;
+                text-align: center;
+                padding: 100px 50px;
+                color: red !important;
+                background: white !important;
+                border: 5px solid red;
+                margin: 50px;
+            }
+            html, body {
+                height: 100vh !important;
+                overflow: hidden !important;
+                background: white !important;
+            }
+        }
+        
+        /* Additional print protection */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+        
+        /* Screenshot Protection CSS */
+        .screenshot-protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00, #ff00ff, #00ffff);
+            background-size: 400% 400%;
+            animation: screenshot-protection-animation 0.5s linear infinite;
+            z-index: 999999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        @keyframes screenshot-protection-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Disable image capture */
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Prevent canvas capture */
+        canvas {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Disable video capture */
+        video {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+        
+        /* Prevent text selection for screenshots */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Disable context menu */
+        * {
+            -webkit-context-menu: none;
+            -moz-context-menu: none;
+            context-menu: none;
         }
     </style>
 </head>
@@ -501,62 +798,68 @@
 
         <h3>4.2 Key Configuration Commands</h3>
         
-        <h4>Core Switch Configuration:</h4>
+        <h4>🔧 Core Switch Configuration:</h4>
         <div class="code-block">
-# Create VLANs
-vlan 10
-name SALES
-vlan 20
-name MARKETING
-vlan 30
-name FINANCE
-vlan 40
-name HR
+            <div class="watermark-overlay">UG2024-5-150</div>
+            <div class="watermark-small">KELVIN CHARLES MEENA</div>
+            <div class="access-denied">Configuration Protected</div>
+            <pre><code><span class="comment"># Create VLANs</span>
+<span class="command">vlan</span> <span class="number">10</span>
+<span class="command">name</span> <span class="vlan">SALES</span>
+<span class="command">vlan</span> <span class="number">20</span>
+<span class="command">name</span> <span class="vlan">MARKETING</span>
+<span class="command">vlan</span> <span class="number">30</span>
+<span class="command">name</span> <span class="vlan">FINANCE</span>
+<span class="command">vlan</span> <span class="number">40</span>
+<span class="command">name</span> <span class="vlan">HR</span>
 
-# Configure trunk port to router
-interface GigabitEthernet0/1
-switchport mode trunk
-switchport trunk allowed vlan 10,20,30,40
+<span class="comment"># Configure trunk port to router</span>
+<span class="command">interface</span> <span class="interface">GigabitEthernet0/1</span>
+<span class="command">switchport mode trunk</span>
+<span class="command">switchport trunk allowed vlan</span> <span class="number">10,20,30,40</span>
 
-# Assign access ports to VLANs
-interface range FastEthernet0/1-4
-switchport mode access
-switchport access vlan 10
+<span class="comment"># Assign access ports to VLANs</span>
+<span class="command">interface range</span> <span class="interface">FastEthernet0/1-4</span>
+<span class="command">switchport mode access</span>
+<span class="command">switchport access vlan</span> <span class="number">10</span>
 
-interface range FastEthernet0/5-8
-switchport mode access
-switchport access vlan 20
+<span class="command">interface range</span> <span class="interface">FastEthernet0/5-8</span>
+<span class="command">switchport mode access</span>
+<span class="command">switchport access vlan</span> <span class="number">20</span>
 
-interface range FastEthernet0/9-12
-switchport mode access
-switchport access vlan 30
+<span class="command">interface range</span> <span class="interface">FastEthernet0/9-12</span>
+<span class="command">switchport mode access</span>
+<span class="command">switchport access vlan</span> <span class="number">30</span>
 
-interface range FastEthernet0/13-16
-switchport mode access
-switchport access vlan 40
+<span class="command">interface range</span> <span class="interface">FastEthernet0/13-16</span>
+<span class="command">switchport mode access</span>
+<span class="command">switchport access vlan</span> <span class="number">40</span></code></pre>
         </div>
 
-        <h4>Router Configuration:</h4>
+        <h4>🌐 Router Configuration:</h4>
         <div class="code-block">
-# Configure sub-interfaces for VLAN routing
-interface GigabitEthernet0/0.10
-encapsulation dot1Q 10
-ip address 192.168.10.1 255.255.255.0
+            <div class="watermark-overlay">UG2024-5-150</div>
+            <div class="watermark-small">KELVIN CHARLES MEENA</div>
+            <div class="access-denied">Configuration Protected</div>
+            <pre><code><span class="comment"># Configure sub-interfaces for VLAN routing</span>
+<span class="command">interface</span> <span class="interface">GigabitEthernet0/0.10</span>
+<span class="command">encapsulation dot1Q</span> <span class="number">10</span>
+<span class="command">ip address</span> <span class="ip-address">192.168.10.1</span> <span class="ip-address">255.255.255.0</span>
 
-interface GigabitEthernet0/0.20
-encapsulation dot1Q 20
-ip address 192.168.20.1 255.255.255.0
+<span class="command">interface</span> <span class="interface">GigabitEthernet0/0.20</span>
+<span class="command">encapsulation dot1Q</span> <span class="number">20</span>
+<span class="command">ip address</span> <span class="ip-address">192.168.20.1</span> <span class="ip-address">255.255.255.0</span>
 
-interface GigabitEthernet0/0.30
-encapsulation dot1Q 30
-ip address 192.168.30.1 255.255.255.0
+<span class="command">interface</span> <span class="interface">GigabitEthernet0/0.30</span>
+<span class="command">encapsulation dot1Q</span> <span class="number">30</span>
+<span class="command">ip address</span> <span class="ip-address">192.168.30.1</span> <span class="ip-address">255.255.255.0</span>
 
-interface GigabitEthernet0/0.40
-encapsulation dot1Q 40
-ip address 192.168.40.1 255.255.255.0
+<span class="command">interface</span> <span class="interface">GigabitEthernet0/0.40</span>
+<span class="command">encapsulation dot1Q</span> <span class="number">40</span>
+<span class="command">ip address</span> <span class="ip-address">192.168.40.1</span> <span class="ip-address">255.255.255.0</span>
 
-# Enable IP routing
-ip routing
+<span class="comment"># Enable IP routing</span>
+<span class="command">ip routing</span></code></pre>
         </div>
 
         <h3>4.3 Network Testing Results</h3>
@@ -683,133 +986,399 @@ ip routing
         const currentDate = new Date().toLocaleDateString('en-GB');
         document.getElementById('current-date').textContent = currentDate;
         
-        // Copy Protection JavaScript
+        // Enhanced Copy Protection JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             // Disable right-click context menu
             document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                showBlockMessage('Right-click is disabled on this page.');
                 return false;
+            }, { passive: false, capture: true });
+            
+            // Additional right-click protection
+            document.addEventListener('mousedown', function(e) {
+                if (e.button === 2) { // Right mouse button
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    showBlockMessage('Right-click is disabled on this page.');
+                    return false;
+                }
+            }, { passive: false, capture: true });
+            
+            // Prevent context menu on touch devices
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    showBlockMessage('Multi-touch gestures are disabled.');
+                    return false;
+                }
+            }, { passive: false, capture: true });
+            
+            // Disable all copy/cut/paste operations
+            ['copy', 'cut', 'paste', 'selectstart', 'dragstart', 'drag'].forEach(function(event) {
+                document.addEventListener(event, function(e) {
+                    e.preventDefault();
+                    return false;
+                }, { passive: false, capture: true });
             });
             
-            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            // Disable keyboard shortcuts
             document.addEventListener('keydown', function(e) {
                 // Disable F12
                 if (e.keyCode === 123) {
                     e.preventDefault();
+                    showBlockMessage('Developer tools are disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+Shift+I (Developer Tools)
                 if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
                     e.preventDefault();
+                    showBlockMessage('Developer tools are disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+Shift+J (Console)
                 if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
                     e.preventDefault();
+                    showBlockMessage('Console is disabled.');
+                    return false;
+                }
+                
+                // Disable Ctrl+Shift+C (Inspect Element)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    showBlockMessage('Inspect element is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+U (View Source)
                 if (e.ctrlKey && e.keyCode === 85) {
                     e.preventDefault();
+                    showBlockMessage('View source is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+S (Save Page)
                 if (e.ctrlKey && e.keyCode === 83) {
                     e.preventDefault();
+                    showBlockMessage('Saving is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+A (Select All)
                 if (e.ctrlKey && e.keyCode === 65) {
                     e.preventDefault();
+                    showBlockMessage('Text selection is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+C (Copy)
                 if (e.ctrlKey && e.keyCode === 67) {
                     e.preventDefault();
+                    showBlockMessage('Copying is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+V (Paste)
                 if (e.ctrlKey && e.keyCode === 86) {
                     e.preventDefault();
+                    showBlockMessage('Pasting is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+X (Cut)
                 if (e.ctrlKey && e.keyCode === 88) {
                     e.preventDefault();
+                    showBlockMessage('Cutting is disabled.');
                     return false;
                 }
                 
                 // Disable Ctrl+P (Print)
                 if (e.ctrlKey && e.keyCode === 80) {
                     e.preventDefault();
+                    showBlockMessage('Printing is disabled.');
                     return false;
                 }
-            });
+                
+                // Disable Ctrl+Shift+S (Save As)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    showBlockMessage('Save as is disabled.');
+                    return false;
+                }
+                
+                // Disable Print Screen
+                if (e.keyCode === 44) {
+                    e.preventDefault();
+                    showBlockMessage('Screenshots are disabled.');
+                    return false;
+                }
+                
+                // Disable Windows + Print Screen
+                if (e.keyCode === 44 && e.metaKey) {
+                    e.preventDefault();
+                    showBlockMessage('Screenshots are disabled.');
+                    return false;
+                }
+                
+                // Disable Alt + Print Screen
+                if (e.keyCode === 44 && e.altKey) {
+                    e.preventDefault();
+                    showBlockMessage('Screenshots are disabled.');
+                    return false;
+                }
+                
+                // Disable Shift + Print Screen
+                if (e.keyCode === 44 && e.shiftKey) {
+                    e.preventDefault();
+                    showBlockMessage('Screenshots are disabled.');
+                    return false;
+                }
+            }, { passive: false, capture: true });
             
-            // Disable text selection
+            // Disable text selection on all elements
             document.addEventListener('selectstart', function(e) {
                 e.preventDefault();
                 return false;
-            });
+            }, { passive: false, capture: true });
             
             // Disable drag and drop
             document.addEventListener('dragstart', function(e) {
                 e.preventDefault();
                 return false;
-            });
+            }, { passive: false, capture: true });
             
             // Disable image saving
             document.addEventListener('drag', function(e) {
                 e.preventDefault();
                 return false;
-            });
+            }, { passive: false, capture: true });
             
-            // Disable print screen (basic protection)
-            document.addEventListener('keyup', function(e) {
-                if (e.keyCode === 44) { // Print Screen key
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
-            // Clear clipboard on page load only (no periodic clearing to avoid permission popups)
+            // Clear clipboard periodically
             if (navigator.clipboard) {
-                navigator.clipboard.writeText('').catch(function() {
-                    // Ignore errors - clipboard access may not be available
-                });
+                setInterval(function() {
+                    navigator.clipboard.writeText('').catch(function() {
+                        // Ignore errors - clipboard access may not be available
+                    });
+                }, 1000);
             }
             
-            // Disable developer tools detection
+            // Enhanced developer tools detection
             let devtools = {open: false, orientation: null};
             setInterval(function() {
                 if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
                     if (!devtools.open) {
                         devtools.open = true;
-                        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-size:24px;color:red;">Access Denied - Developer Tools Detected</div>';
+                        document.body.innerHTML = '<div style="text-align:center;padding:50px;font-size:24px;color:red;background:white;height:100vh;display:flex;align-items:center;justify-content:center;">Access Denied - Developer Tools Detected</div>';
                     }
                 }
-            }, 500);
+            }, 100);
             
-            // Disable console
+            // Advanced Screenshot Protection
+            let screenshotProtection = {
+                isActive: false,
+                overlay: null,
+                startTime: Date.now()
+            };
+            
+            // Create screenshot protection overlay
+            function createScreenshotOverlay() {
+                if (screenshotProtection.overlay) return;
+                
+                screenshotProtection.overlay = document.createElement('div');
+                screenshotProtection.overlay.id = 'screenshot-protection';
+                screenshotProtection.overlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ffff00, #ff00ff, #00ffff);
+                    background-size: 400% 400%;
+                    animation: screenshot-protection 0.5s linear infinite;
+                    z-index: 999999;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                `;
+                
+                // Add animation keyframes
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes screenshot-protection {
+                        0% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                        100% { background-position: 0% 50%; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.body.appendChild(screenshotProtection.overlay);
+            }
+            
+            // Trigger screenshot protection
+            function triggerScreenshotProtection() {
+                createScreenshotOverlay();
+                screenshotProtection.overlay.style.opacity = '1';
+                screenshotProtection.isActive = true;
+                
+                setTimeout(function() {
+                    if (screenshotProtection.overlay) {
+                        screenshotProtection.overlay.style.opacity = '0';
+                        setTimeout(function() {
+                            if (screenshotProtection.overlay && screenshotProtection.overlay.parentNode) {
+                                screenshotProtection.overlay.parentNode.removeChild(screenshotProtection.overlay);
+                                screenshotProtection.overlay = null;
+                            }
+                            screenshotProtection.isActive = false;
+                        }, 300);
+                    }
+                }, 2000);
+            }
+            
+            // Detect screenshot attempts
+            document.addEventListener('keydown', function(e) {
+                // Print Screen key
+                if (e.keyCode === 44) {
+                    triggerScreenshotProtection();
+                    showBlockMessage('Screenshot attempt detected and blocked!');
+                }
+                
+                // Windows + Shift + S (Windows Snipping Tool)
+                if (e.keyCode === 83 && e.shiftKey && e.metaKey) {
+                    triggerScreenshotProtection();
+                    showBlockMessage('Screenshot attempt detected and blocked!');
+                }
+                
+                // Alt + Print Screen
+                if (e.keyCode === 44 && e.altKey) {
+                    triggerScreenshotProtection();
+                    showBlockMessage('Screenshot attempt detected and blocked!');
+                }
+            });
+            
+            // Detect right-click context menu (often used for screenshot tools)
+            document.addEventListener('contextmenu', function(e) {
+                triggerScreenshotProtection();
+                showBlockMessage('Screenshot attempt detected and blocked!');
+            });
+            
+            // Detect window focus changes (screenshot tools often cause this)
+            let lastFocusTime = Date.now();
+            window.addEventListener('focus', function() {
+                const now = Date.now();
+                if (now - lastFocusTime > 1000) { // If focus changed after more than 1 second
+                    triggerScreenshotProtection();
+                    showBlockMessage('Suspicious activity detected!');
+                }
+                lastFocusTime = now;
+            });
+            
+            // Detect page visibility changes
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    triggerScreenshotProtection();
+                    showBlockMessage('Page visibility changed - protection activated!');
+                }
+            });
+            
+            // Detect mouse movements that might indicate screenshot tools
+            let mouseMoveCount = 0;
+            document.addEventListener('mousemove', function(e) {
+                mouseMoveCount++;
+                if (mouseMoveCount > 100) { // Excessive mouse movement
+                    triggerScreenshotProtection();
+                    showBlockMessage('Suspicious mouse activity detected!');
+                    mouseMoveCount = 0;
+                }
+            });
+            
+            // Reset mouse counter every 5 seconds
+            setInterval(function() {
+                mouseMoveCount = 0;
+            }, 5000);
+            
+            // Disable console completely
             console.clear();
             console.log = function() {};
             console.warn = function() {};
             console.error = function() {};
             console.info = function() {};
             console.debug = function() {};
+            console.trace = function() {};
+            console.table = function() {};
+            console.group = function() {};
+            console.groupEnd = function() {};
             
             // Disable alert and confirm
             window.alert = function() {};
             window.confirm = function() { return false; };
             window.prompt = function() { return null; };
+            
+            // Disable common debugging functions
+            window.debugger = function() {};
+            window.eval = function() {};
+            
+            // Block message function
+            function showBlockMessage(msg) {
+                var id = 'action-blocked-banner';
+                var el = document.getElementById(id);
+                if (!el) {
+                    el = document.createElement('div');
+                    el.id = id;
+                    el.style.position = 'fixed';
+                    el.style.bottom = '20px';
+                    el.style.left = '50%';
+                    el.style.transform = 'translateX(-50%)';
+                    el.style.background = 'rgba(220, 38, 38, 0.9)';
+                    el.style.color = '#fff';
+                    el.style.padding = '12px 20px';
+                    el.style.borderRadius = '8px';
+                    el.style.fontSize = '14px';
+                    el.style.fontWeight = 'bold';
+                    el.style.zIndex = '99999';
+                    el.style.boxShadow = '0 6px 18px rgba(0,0,0,0.25)';
+                    el.style.border = '2px solid #fff';
+                    document.body.appendChild(el);
+                }
+                el.textContent = msg || 'Action disabled on this page.';
+                el.style.display = 'block';
+                clearTimeout(el._t);
+                el._t = setTimeout(function() { el.style.display = 'none'; }, 2000);
+            }
+            
+            // Disable code block interaction
+            document.querySelectorAll('.code-block').forEach(function(block) {
+                block.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showBlockMessage('Configuration access is restricted.');
+                    return false;
+                });
+                
+                block.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    showBlockMessage('Right-click is disabled on configuration blocks.');
+                    return false;
+                });
+                
+                block.addEventListener('selectstart', function(e) {
+                    e.preventDefault();
+                    showBlockMessage('Text selection is disabled on configuration blocks.');
+                    return false;
+                });
+                
+                block.addEventListener('dragstart', function(e) {
+                    e.preventDefault();
+                    showBlockMessage('Dragging is disabled on configuration blocks.');
+                    return false;
+                });
+            });
         });
     </script>
 </body>
